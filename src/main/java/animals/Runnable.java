@@ -4,5 +4,5 @@ public interface Runnable {
 
     public void run();
 
-    public int getTop();
+    public int getTopSpeed();
 }
