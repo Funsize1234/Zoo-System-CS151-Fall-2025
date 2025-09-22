@@ -13,4 +13,12 @@ public abstract class Habitat {
         animals = new ArrayList<ZooAnimal>();
     }
 
+    public List<ZooAnimal> getAnimals() {
+        return animals;
+    }
+
+    abstract boolean addAnimal();
+
+    abstract boolean removeAnimal();
+
 }
