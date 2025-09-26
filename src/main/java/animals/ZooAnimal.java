@@ -21,4 +21,16 @@ public abstract class ZooAnimal {
         health += amount/size; // basic expression for now but if we want hunger/health to be more complicated we can add more later
     }
 
+    public int getHealth() {
+        return health;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setHealth(int newHealth) {
+        health = newHealth;
+    }
+
 }
