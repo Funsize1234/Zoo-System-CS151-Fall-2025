@@ -1,8 +1,10 @@
-package src.main.java.zoo;
+package src.main.java.habitats;
 
 import java.util.List;
+
+import src.main.java.zoo.ZooAnimal;
+
 import java.util.ArrayList;
-import src.main.java.animals.ZooAnimal;
 
 public abstract class Habitat {
     private int maxAnimals;
@@ -17,8 +19,12 @@ public abstract class Habitat {
         return animals;
     }
 
-    abstract boolean addAnimal();
+    public int getMaxAnimals() {
+        return maxAnimals;
+    }   
 
-    abstract boolean removeAnimal();
+    public abstract boolean addAnimal(ZooAnimal a);
+
+    public abstract boolean removeAnimal();
 
 }
