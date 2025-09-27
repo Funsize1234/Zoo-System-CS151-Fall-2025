@@ -25,12 +25,13 @@ public abstract class ZooAnimal {
         
     }
 
+
     public ZooAnimal (int health, int size) {
         this.health = health;
         this.size = size;
         
     }
-
+    
     public void feed(int amount) {
         if (health == MAX_HEALTH) {
             System.out.println("Too full to eat");
