@@ -4,9 +4,6 @@ public interface Runnable {
 
     public void run();
 
-<<<<<<< Updated upstream
-    public int getTop();
-=======
     public void stop();
 
     public int getTopSpeed();
@@ -17,5 +14,4 @@ public interface Runnable {
     
     public int  getJumpCount();
     
->>>>>>> Stashed changes
 }
