@@ -12,6 +12,6 @@ public interface Runnable {
 
     public boolean isRunning();
     
-    public int  getJumpCount();
+    public int getJumpCount();
     
 }
