@@ -5,11 +5,17 @@ public abstract class ZooAnimal {
     protected int health; 
     protected int size;
     protected String name;
+    protected int purchaseCost;
+    protected int basicPoints;
+    protected int trickPoints;
 
-    public ZooAnimal (int health, int size, String name) {
+    public ZooAnimal (int health, int size, int purchaseCost, int basicPoints, int trickPoints) {
         this.health = health;
         this.size = size;
-        this.name = name;
+        this.name = ""; // Will be set later
+        this.purchaseCost = purchaseCost;
+        this.basicPoints = basicPoints;
+        this.trickPoints = trickPoints;
     }
 
     public void feed(int amount) {
@@ -19,8 +25,8 @@ public abstract class ZooAnimal {
         else if (health + amount > MAX_HEALTH) {
             health = MAX_HEALTH;
             return;
-        }   
-        health += amount/size; // basic expression for now but if we want hunger/health to be more complicated we can add more later
+        }
+        health += amount/size;
     }
 
     public int getHealth() {
@@ -37,6 +43,22 @@ public abstract class ZooAnimal {
 
     public String getName() {
         return name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public int getPurchaseCost() {
+        return purchaseCost;
+    }
+    
+    public int getBasicPoints() {
+        return basicPoints;
+    }
+    
+    public int getTrickPoints() {
+        return trickPoints;
     }
 
 }
