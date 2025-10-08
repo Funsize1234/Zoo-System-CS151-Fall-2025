@@ -9,7 +9,7 @@ public class Lion extends ZooAnimal implements Runnable {
 
 
     public Lion(int health, int size) {
-        super(health, size, "ground");
+        super(health, size);
     }
 
     @Override

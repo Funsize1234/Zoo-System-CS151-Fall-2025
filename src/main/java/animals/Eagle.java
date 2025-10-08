@@ -18,4 +18,28 @@ public class Eagle extends ZooAnimal implements Flyable, Runnable {
         return 0;
     }
 
+    @Override
+    public void stop() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'stop'");
+    }
+
+    @Override
+    public void jump() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'jump'");
+    }
+
+    @Override
+    public boolean isRunning() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'isRunning'");
+    }
+
+    @Override
+    public int getJumpCount() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getJumpCount'");
+    }
+
 }

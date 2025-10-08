@@ -1,14 +1,13 @@
 package src.main.java.habitats;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import src.main.java.zoo.ZooAnimal;
 
-import java.util.ArrayList;
-
 public abstract class Habitat {
     private int maxAnimals;
-    private List<ZooAnimal> animals;
+    private ArrayList<ZooAnimal> animals;
 
     protected Habitat(int maxAnimals) {
         this.maxAnimals = maxAnimals;
@@ -21,7 +20,7 @@ public abstract class Habitat {
 
     public int getMaxAnimals() {
         return maxAnimals;
-    }   
+    }
 
     public abstract boolean addAnimal(ZooAnimal a);
 
