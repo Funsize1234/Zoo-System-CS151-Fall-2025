@@ -4,6 +4,7 @@ public abstract class ZooAnimal {
     public final static int MAX_HEALTH = 100;
     protected int health; 
     protected int size;
+    protected String name;
 
     public ZooAnimal (int health, int size) {
         this.health = health;
@@ -31,6 +32,10 @@ public abstract class ZooAnimal {
 
     public void setHealth(int newHealth) {
         health = newHealth;
+    }
+
+    public String getName() {
+        return name;
     }
 
 }

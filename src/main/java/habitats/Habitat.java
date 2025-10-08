@@ -3,11 +3,11 @@ package src.main.java.habitats;
 import java.util.ArrayList;
 import java.util.List;
 
-import src.main.java.zoo.ZooAnimal;
+import src.main.java.animals.ZooAnimal;
 
 public abstract class Habitat {
     private int maxAnimals;
-    private ArrayList<ZooAnimal> animals;
+    protected ArrayList<ZooAnimal> animals;
 
     protected Habitat(int maxAnimals) {
         this.maxAnimals = maxAnimals;

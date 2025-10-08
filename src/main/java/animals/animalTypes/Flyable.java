@@ -1,4 +1,6 @@
-package src.main.java.animals;
+package src.main.java.animals.animalTypes;
+
+import src.main.java.animals.ZooAnimal;
 
 public interface Flyable {
 

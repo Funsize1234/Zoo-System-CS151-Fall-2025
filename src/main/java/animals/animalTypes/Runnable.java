@@ -1,4 +1,4 @@
-package src.main.java.animals;
+package src.main.java.animals.animalTypes;
 
 public interface Runnable {
 

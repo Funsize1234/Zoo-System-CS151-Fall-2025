@@ -1,5 +1,7 @@
 package src.main.java.animals;
 
+import src.main.java.animals.animalTypes.Runnable;
+
 public class Lion extends ZooAnimal implements Runnable {
 
     //mph

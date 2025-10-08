@@ -1,11 +1,8 @@
 package src.main.java.habitats;
-import java.util.ArrayList;
-
-import src.main.java.animals.Swimmable;
-import src.main.java.zoo.ZooAnimal;
+import src.main.java.animals.ZooAnimal;
+import src.main.java.animals.animalTypes.Swimmable;
 
 public class AquaticHabitat extends Habitat {
-    private ArrayList<ZooAnimal> animals;
     
     public AquaticHabitat(int maxAnimals) {
         super(maxAnimals);
@@ -28,5 +25,5 @@ public class AquaticHabitat extends Habitat {
             return false;
         }
     }
-    
 }
+

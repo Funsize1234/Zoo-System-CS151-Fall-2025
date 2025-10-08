@@ -1,5 +1,8 @@
 package src.main.java.animals;
 
+import src.main.java.animals.animalTypes.Flyable;
+import src.main.java.animals.animalTypes.Runnable;
+
 public class Duck extends ZooAnimal implements Flyable, Runnable {
 
     public Duck (int health, int size) {
