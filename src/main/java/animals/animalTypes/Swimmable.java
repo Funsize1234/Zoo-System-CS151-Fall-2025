@@ -6,7 +6,4 @@ public interface Swimmable {
 
     public int performWaterTricks();
 
-    public boolean splash();
-
-
 }
