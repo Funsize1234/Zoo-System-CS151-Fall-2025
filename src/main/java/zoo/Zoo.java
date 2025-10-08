@@ -40,6 +40,7 @@ public class Zoo {
         }
     }
     
+    //every 10 points, a visitor is added
     public void addPoints(int amount) {
         points += amount;
 
@@ -60,6 +61,7 @@ public class Zoo {
         exhibits.add(exhibit);
     }
     
+    //every 2 animals, a visitor is added
     public void addAnimal() {
         totalAnimals++;
 
