@@ -4,6 +4,6 @@ public interface Swimmable {
 
     public void swim();
 
-    public int performWaterTricks();
+    public void performWaterTricks();
 
 }

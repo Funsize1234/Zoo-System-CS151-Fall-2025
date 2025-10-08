@@ -4,7 +4,7 @@ public interface Flyable {
 
     public void fly();
     
-    public int performAirTricks();
+    public void performAirTricks();
 
 
 }
