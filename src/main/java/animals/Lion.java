@@ -10,8 +10,8 @@ public class Lion extends ZooAnimal implements Runnable {
     private int jumpCount = 0;
 
 
-    public Lion(int health, int size) {
-        super(health, size);
+    public Lion(int health, int size, String name) {
+        super(health, size, name);
     }
 
     @Override

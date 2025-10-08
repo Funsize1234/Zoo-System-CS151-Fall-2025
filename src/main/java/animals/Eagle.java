@@ -5,8 +5,8 @@ import src.main.java.animals.animalTypes.Runnable;
 
 public class Eagle extends ZooAnimal implements Flyable, Runnable {
 
-    public Eagle (int health, int size) {
-        super(health, size);
+    public Eagle(int health, int size, String name) {
+        super(health, size, name);
     }
 
     public void run() {

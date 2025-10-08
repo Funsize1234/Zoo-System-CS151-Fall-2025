@@ -6,9 +6,10 @@ public abstract class ZooAnimal {
     protected int size;
     protected String name;
 
-    public ZooAnimal (int health, int size) {
+    public ZooAnimal (int health, int size, String name) {
         this.health = health;
         this.size = size;
+        this.name = name;
     }
 
     public void feed(int amount) {
