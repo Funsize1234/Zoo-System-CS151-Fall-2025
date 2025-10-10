@@ -12,9 +12,7 @@ import src.main.java.animals.Tortoise;
 import src.main.java.animals.ZooAnimal;
 import src.main.java.animals.animalTypes.Flyable;
 import src.main.java.animals.animalTypes.Swimmable;
-import src.main.java.habitats.AquaticHabitat;
-import src.main.java.habitats.AviaryHabitat;
-import src.main.java.habitats.GroundHabitat;
+import src.main.java.habitats.*;
 
 public class ZooApp {
     private final Scanner sc;
@@ -211,7 +209,35 @@ public class ZooApp {
         // print the available habitats and then the user selects it
         // print the available animals from that habitat
         // when a animal is selected, it should call the interactWithAnimal method
-        System.out.println("to be implemented");
+        // finished -isaac (you can delete this when it works)
+        List<Exhibit> exhibitList = zoo.getExhibits();
+        System.out.println("\n=== Available Exhibits in your Zoo ===");
+        int option = 1;
+        for (Exhibit e : exhibitList) {
+            System.out.println(option + ". " + e.getName());
+            ++option;
+        }
+        int choice = getIntInput("Please choose which exhibit (1" + (option - 1) + ") you would like to interact with.");
+        if (!(choice >= 1 && choice <= option - 1)) {
+            System.out.println("Invalid exhibit. Please enter a valid number next time.");
+            return;
+        }
+
+        Exhibit chosenExhibit = exhibitList.get(option - 1);
+        List<ZooAnimal> animalList = chosenExhibit.getAllAnimals();
+        System.out.println("\n=== Available Animals in " + chosenExhibit.getName() + " ===");
+        option = 1;
+        for (ZooAnimal z : animalList) {
+            System.out.println(option + ". " + z.getName());
+            ++option;
+        }
+
+        choice = getIntInput("Please choose which animal (1" + (option - 1) + ")you would like to interact with");
+        if (!(choice >= 1 && choice <= option - 1)) {
+            System.out.println("No such animal can be found. Please enter a valid number next time.");
+            return;
+        }
+        interactWithAnimal(animalList.get(option - 1));
     }
     
     private void interactWithAnimal(ZooAnimal animal) {
