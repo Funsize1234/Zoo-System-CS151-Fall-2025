@@ -159,8 +159,10 @@ public class ZooApp {
         }
         
         //basically this shows the available animals
-        int animalChoice = getIntInput("Select animal type (1-" + availableAnimals.size() + "): ") - 1;
-        if (animalChoice < 0 || animalChoice >= availableAnimals.size()) {
+        int animalChoice = getIntInput("Select animal type (1-" + availableAnimals.size() + ") or 0 to go back: ") - 1;
+        if (animalChoice < 0)
+            return;
+        else if (animalChoice >= availableAnimals.size()) {
             System.out.println("Invalid selection!");
             return;
         }
@@ -202,29 +204,30 @@ public class ZooApp {
     }
     
     private void interactWithAnimals() {
-        // I would do this method but I want to let you guys do something
-        // basically this part prints when u select interact with animals in the menu
-        
-        // It should:
-        // print the available habitats and then the user selects it
-        // print the available animals from that habitat
-        // when a animal is selected, it should call the interactWithAnimal method
-        // finished -isaac (you can delete this when it works)
         List<Exhibit> exhibitList = zoo.getExhibits();
+        if (exhibitList.isEmpty()) {
+            System.out.println("No exhibits available! Create an exhibit first.");
+            return;
+        }
         System.out.println("\n=== Available Exhibits in your Zoo ===");
         int option = 1;
         for (Exhibit e : exhibitList) {
             System.out.println(option + ". " + e.getName());
             ++option;
         }
-        int choice = getIntInput("Please choose which exhibit (1" + (option - 1) + ") you would like to interact with.");
+        int choice = getIntInput("Please choose which exhibit (1-" + (option - 1) + ") you would like to interact with.");
         if (!(choice >= 1 && choice <= option - 1)) {
             System.out.println("Invalid exhibit. Please enter a valid number next time.");
             return;
         }
 
-        Exhibit chosenExhibit = exhibitList.get(option - 1);
+        Exhibit chosenExhibit = exhibitList.get(option - 2);
         List<ZooAnimal> animalList = chosenExhibit.getAllAnimals();
+        System.out.println(chosenExhibit.getName());
+        if (animalList.isEmpty()) {
+            System.out.println("No animals exist in this exhibit currently.");
+            return;
+        }
         System.out.println("\n=== Available Animals in " + chosenExhibit.getName() + " ===");
         option = 1;
         for (ZooAnimal z : animalList) {
@@ -232,12 +235,12 @@ public class ZooApp {
             ++option;
         }
 
-        choice = getIntInput("Please choose which animal (1" + (option - 1) + ")you would like to interact with");
+        choice = getIntInput("Please choose which animal (1-" + (option - 1) + ") you would like to interact with");
         if (!(choice >= 1 && choice <= option - 1)) {
             System.out.println("No such animal can be found. Please enter a valid number next time.");
             return;
         }
-        interactWithAnimal(animalList.get(option - 1));
+        interactWithAnimal(animalList.get(option - 2));
     }
     
     private void interactWithAnimal(ZooAnimal animal) {
