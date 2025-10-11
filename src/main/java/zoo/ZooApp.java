@@ -64,7 +64,7 @@ public class ZooApp {
         System.out.println("\n=== " + zooName + " Zoo Menu ===");
         System.out.println("1. Create New Exhibit");
         System.out.println("2. Add Animal to Exhibit");
-        System.out.println("3. Interact with Animals (please implement)");
+        System.out.println("3. Interact with Animals");
         System.out.println("4. View Zoo Stats (please implement)");
         System.out.println("5. Exit");
         System.out.println("Points: " + zoo.getPoints() + " | Visitors: " + zoo.getVisitors() + "/" + zoo.getCapacity());
