@@ -13,6 +13,10 @@ public class AquaticHabitat extends Habitat {
         return false;
     }
 
+    public boolean removeAnimal(ZooAnimal animal) {
+        return animals.remove(animal);
+    }
+
     public boolean addAnimal(ZooAnimal a) {
         if(!(getAnimals().size() < getMaxAnimals())) {
             return false;
