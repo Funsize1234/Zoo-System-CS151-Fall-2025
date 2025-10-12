@@ -9,12 +9,13 @@ public class Dolphin extends ZooAnimal implements Swimmable {
     }
 
     @Override
-    public void swim() {
-
+    public int swim() {
+        return getBasicPoints();
     }
 
     @Override
-    public void performWaterTricks() {
+    public int performWaterTricks() {
+        return getTrickPoints();
     }
 
     

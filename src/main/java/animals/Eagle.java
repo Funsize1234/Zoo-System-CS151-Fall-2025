@@ -10,19 +10,23 @@ public class Eagle extends ZooAnimal implements Flyable, Runnable {
     }
 
     @Override
-    public void run() {
+    public int run() {
+        return getBasicPoints();
     }
 
     @Override
-    public void fly() {
+    public int fly() {
+        return getBasicPoints();
     }
 
     @Override
-    public void performAirTricks() {
+    public int performAirTricks() {
+        return getTrickPoints();
     }
     
     @Override
-    public void performGroundTricks() {
+    public int performGroundTricks() {
+        return getTrickPoints();
     }
 
 }

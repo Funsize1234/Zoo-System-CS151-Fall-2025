@@ -2,8 +2,8 @@ package src.main.java.animals.animalTypes;
 
 public interface Swimmable {
 
-    public void swim();
+    public int swim();
 
-    public void performWaterTricks();
+    public int performWaterTricks();
 
 }

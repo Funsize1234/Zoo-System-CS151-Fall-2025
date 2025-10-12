@@ -11,30 +11,34 @@ public class Duck extends ZooAnimal implements Flyable, Runnable, Swimmable {
     }
 
     @Override
-    public void run() {
+    public int run() {
+        return getBasicPoints();
     }
 
     @Override
-    public void fly() {
+    public int fly() {
+        return getBasicPoints();
     }
 
     @Override
-    public void swim() {
-    }
-    
-
-    @Override
-    public void performWaterTricks() {
-
-    }
-
-    @Override
-    public void performAirTricks() {
-
+    public int swim() {
+        return getBasicPoints();
     }
     
+
     @Override
-    public void performGroundTricks() {
+    public int performWaterTricks() {
+        return getTrickPoints();
+    }
+
+    @Override
+    public int performAirTricks() {
+        return getTrickPoints();
+    }
+    
+    @Override
+    public int performGroundTricks() {
+        return getTrickPoints();
     }
 
 }

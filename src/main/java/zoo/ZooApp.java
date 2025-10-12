@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
 
 import src.main.java.animals.Dolphin;
 import src.main.java.animals.Duck;
@@ -252,42 +251,45 @@ public class ZooApp {
         System.out.println("Health: " + animal.getHealth() + "/" + ZooAnimal.MAX_HEALTH);
         
         List<String> options = new ArrayList<>();
-        List<Integer> pointRewards = new ArrayList<>();
         
         // i didnt understand this bug for like 15 min LOL
         // using this long name because Runnable is actually something in java
         if (animal instanceof src.main.java.animals.animalTypes.Runnable) {
             options.add("Run");
-            pointRewards.add(animal.getBasicPoints());
         }
         if (animal instanceof Swimmable) {
             options.add("Swim");
-            pointRewards.add(animal.getBasicPoints());
         }
         if (animal instanceof Flyable) {
             options.add("Fly");
-            pointRewards.add(animal.getBasicPoints());
         }
         
         if (animal instanceof src.main.java.animals.animalTypes.Runnable) {
             options.add("Perform Ground Tricks");
-            pointRewards.add(animal.getTrickPoints());
         }
         if (animal instanceof Swimmable) {
             options.add("Perform Water Tricks");
-            pointRewards.add(animal.getTrickPoints());
         }
         if (animal instanceof Flyable) {
             options.add("Perform Air Tricks");
-            pointRewards.add(animal.getTrickPoints());
         }
         
         options.add("Feed");
-        pointRewards.add(5);
         
         // prints the options + points
         for (int i = 0; i < options.size(); i++) {
-            System.out.println((i + 1) + ". " + options.get(i) + " (+" + pointRewards.get(i) + " points)");
+            String option = options.get(i);
+            if (option.equals("Feed")) {
+                System.out.println((i + 1) + ". " + option);
+            } else {
+                int points = 0;
+                if (option.equals("Run") || option.equals("Swim") || option.equals("Fly")) {
+                    points = animal.getBasicPoints();
+                } else if (option.startsWith("Perform")) {
+                    points = animal.getTrickPoints();
+                }
+                System.out.println((i + 1) + ". " + option + " (+" + points + " points)");
+            }
         }
         
         int choice = getIntInput("Select interaction (1-" + options.size() + "): ") - 1;
@@ -297,31 +299,31 @@ public class ZooApp {
         }
         
         String selectedOption = options.get(choice);
-        int pointsEarned = pointRewards.get(choice);
+        int pointsEarned = 0;
         
         switch (selectedOption) {
             case "Run":
-                ((src.main.java.animals.animalTypes.Runnable) animal).run();
+                pointsEarned = ((src.main.java.animals.animalTypes.Runnable) animal).run();
                 animal.decreaseHealth(5);
                 break;
             case "Swim":
-                ((Swimmable) animal).swim();
+                pointsEarned = ((Swimmable) animal).swim();
                 animal.decreaseHealth(5);
                 break;
             case "Fly":
-                ((Flyable) animal).fly();
+                pointsEarned = ((Flyable) animal).fly();
                 animal.decreaseHealth(5);
                 break;
             case "Perform Ground Tricks":
-                ((src.main.java.animals.animalTypes.Runnable) animal).performGroundTricks();
+                pointsEarned = ((src.main.java.animals.animalTypes.Runnable) animal).performGroundTricks();
                 animal.decreaseHealth(10);
                 break;
             case "Perform Water Tricks":
-                ((Swimmable) animal).performWaterTricks();
+                pointsEarned = ((Swimmable) animal).performWaterTricks();
                 animal.decreaseHealth(10);
                 break;
             case "Perform Air Tricks":
-                ((Flyable) animal).performAirTricks();
+                pointsEarned = ((Flyable) animal).performAirTricks();
                 animal.decreaseHealth(10);
                 break;
             case "Feed":
@@ -336,8 +338,10 @@ public class ZooApp {
             return;
         }
         
-        zoo.addPoints(pointsEarned);
-        System.out.println("Earned " + pointsEarned + " points!");
+        if (pointsEarned > 0) {
+            zoo.addPoints(pointsEarned);
+            System.out.println("Earned " + pointsEarned + " points!");
+        }
     }
     
     private void removeDeadAnimal(ZooAnimal animal) {

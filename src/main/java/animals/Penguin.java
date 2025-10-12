@@ -10,20 +10,23 @@ public class Penguin extends ZooAnimal implements Swimmable, Runnable {
     }
     
     @Override
-    public void run() {
+    public int run() {
+        return getBasicPoints();
     }
 
     @Override
-    public void swim() {
-    }
-
-
-    @Override
-    public void performWaterTricks() {
+    public int swim() {
+        return getBasicPoints();
     }
 
     @Override
-    public void performGroundTricks() {
+    public int performWaterTricks() {
+        return getTrickPoints();
+    }
+
+    @Override
+    public int performGroundTricks() {
+        return getTrickPoints();
     }
     
 }

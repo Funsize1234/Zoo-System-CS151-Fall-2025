@@ -2,8 +2,8 @@ package src.main.java.animals.animalTypes;
 
 public interface Runnable {
 
-    public void run();
+    public int run();
     
-    public void performGroundTricks();
+    public int performGroundTricks();
     
 }

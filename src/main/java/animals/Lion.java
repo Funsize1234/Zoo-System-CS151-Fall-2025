@@ -9,12 +9,13 @@ public class Lion extends ZooAnimal implements Runnable {
     }
 
     @Override
-    public void run() {
+    public int run() {
+        return getBasicPoints();
     }
 
-
     @Override
-    public void performGroundTricks() {
+    public int performGroundTricks() {
+        return getTrickPoints();
     }
     
 }
