@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ZooAnimalTest {
+public class ZooAnimalTests {
     private static List<ZooAnimal> animals;
 
     @BeforeAll

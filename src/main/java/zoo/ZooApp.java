@@ -155,7 +155,7 @@ public class ZooApp {
         for (int i = 0; i < availableAnimals.size(); i++) {
             ZooAnimal animal = availableAnimals.get(i);
             System.out.println((i + 1) + ". " + animal.getClass().getSimpleName() + " - Cost: " + animal.getPurchaseCost() + " points");
-        }
+        }   
         
         //basically this shows the available animals
         int animalChoice = getIntInput("Select animal type (1-" + availableAnimals.size() + ") or 0 to go back: ") - 1;
@@ -305,6 +305,7 @@ public class ZooApp {
             return;
         }
         
+        System.out.println("");
         String selectedOption = options.get(choice);
         int pointsEarned = 0;
         switch (selectedOption) {
