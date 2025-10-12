@@ -93,4 +93,10 @@ public class Zoo {
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
+
+    public void removeAnimal() {
+        if (totalAnimals > 0) {
+            totalAnimals--;
+        }
+    }
 }

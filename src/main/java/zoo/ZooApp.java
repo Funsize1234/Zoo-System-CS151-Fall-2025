@@ -231,7 +231,7 @@ public class ZooApp {
         System.out.println("\n=== Available Animals in " + chosenExhibit.getName() + " ===");
         option = 1;
         for (ZooAnimal z : animalList) {
-            System.out.println(option + ". " + z.getName());
+            System.out.println(option + ". " + z.getName() + " (Health: " + z.getHealth() + "/" + ZooAnimal.MAX_HEALTH + ")");
             ++option;
         }
 
@@ -247,6 +247,7 @@ public class ZooApp {
         // basically this is an inner method used to show the options for interacting
         // it also takes care of the point system and method calls
         System.out.println("\n=== Interacting with " + animal.getName() + " ===");
+        System.out.println("Health: " + animal.getHealth() + "/" + ZooAnimal.MAX_HEALTH);
         
         List<String> options = new ArrayList<>();
         List<Integer> pointRewards = new ArrayList<>();
@@ -299,21 +300,27 @@ public class ZooApp {
         switch (selectedOption) {
             case "Run":
                 ((src.main.java.animals.animalTypes.Runnable) animal).run();
+                animal.decreaseHealth(5);
                 break;
             case "Swim":
                 ((Swimmable) animal).swim();
+                animal.decreaseHealth(5);
                 break;
             case "Fly":
                 ((Flyable) animal).fly();
+                animal.decreaseHealth(5);
                 break;
             case "Perform Ground Tricks":
                 ((src.main.java.animals.animalTypes.Runnable) animal).performGroundTricks();
+                animal.decreaseHealth(10);
                 break;
             case "Perform Water Tricks":
                 ((Swimmable) animal).performWaterTricks();
+                animal.decreaseHealth(10);
                 break;
             case "Perform Air Tricks":
                 ((Flyable) animal).performAirTricks();
+                animal.decreaseHealth(10);
                 break;
             case "Feed":
                 animal.feed(20);
@@ -321,8 +328,25 @@ public class ZooApp {
                 break;
         }
         
+        if (!animal.isAlive()) {
+            System.out.println(animal.getName() + " has died from exhaustion!");
+            removeDeadAnimal(animal);
+            return;
+        }
+        
         zoo.addPoints(pointsEarned);
         System.out.println("Earned " + pointsEarned + " points!");
+    }
+    
+    private void removeDeadAnimal(ZooAnimal animal) {
+        for (Exhibit exhibit : zoo.getExhibits()) {
+            if (exhibit.getAllAnimals().contains(animal)) {
+                exhibit.removeAnimal(animal);
+                zoo.removeAnimal();
+                System.out.println(animal.getName() + " has been removed from " + exhibit.getName());
+                break;
+            }
+        }
     }
     
     private void viewZooStats() {
