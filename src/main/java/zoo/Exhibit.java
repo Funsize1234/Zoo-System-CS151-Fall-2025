@@ -124,4 +124,14 @@ public class Exhibit {
         }
         return types.toString();
     }
+
+    public boolean removeAnimal(ZooAnimal animal) {
+        boolean removed = allAnimals.remove(animal);
+        
+        for (Habitat habitat : habitats) {
+            habitat.removeAnimal(animal);
+        }
+        
+        return removed;
+    }
 }

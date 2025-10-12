@@ -3,6 +3,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
+
 import src.main.java.animals.Dolphin;
 import src.main.java.animals.Duck;
 import src.main.java.animals.Eagle;
@@ -231,7 +233,7 @@ public class ZooApp {
         System.out.println("\n=== Available Animals in " + chosenExhibit.getName() + " ===");
         option = 1;
         for (ZooAnimal z : animalList) {
-            System.out.println(option + ". " + z.getName());
+            System.out.println(option + ". " + z.getName() + " (Health: " + z.getHealth() + "/" + ZooAnimal.MAX_HEALTH + ")");
             ++option;
         }
 
@@ -247,6 +249,7 @@ public class ZooApp {
         // basically this is an inner method used to show the options for interacting
         // it also takes care of the point system and method calls
         System.out.println("\n=== Interacting with " + animal.getName() + " ===");
+        System.out.println("Health: " + animal.getHealth() + "/" + ZooAnimal.MAX_HEALTH);
         
         List<String> options = new ArrayList<>();
         List<Integer> pointRewards = new ArrayList<>();
@@ -299,21 +302,27 @@ public class ZooApp {
         switch (selectedOption) {
             case "Run":
                 ((src.main.java.animals.animalTypes.Runnable) animal).run();
+                animal.decreaseHealth(5);
                 break;
             case "Swim":
                 ((Swimmable) animal).swim();
+                animal.decreaseHealth(5);
                 break;
             case "Fly":
                 ((Flyable) animal).fly();
+                animal.decreaseHealth(5);
                 break;
             case "Perform Ground Tricks":
                 ((src.main.java.animals.animalTypes.Runnable) animal).performGroundTricks();
+                animal.decreaseHealth(10);
                 break;
             case "Perform Water Tricks":
                 ((Swimmable) animal).performWaterTricks();
+                animal.decreaseHealth(10);
                 break;
             case "Perform Air Tricks":
                 ((Flyable) animal).performAirTricks();
+                animal.decreaseHealth(10);
                 break;
             case "Feed":
                 animal.feed(20);
@@ -321,8 +330,25 @@ public class ZooApp {
                 break;
         }
         
+        if (!animal.isAlive()) {
+            System.out.println(animal.getName() + " has died from exhaustion!");
+            removeDeadAnimal(animal);
+            return;
+        }
+        
         zoo.addPoints(pointsEarned);
         System.out.println("Earned " + pointsEarned + " points!");
+    }
+    
+    private void removeDeadAnimal(ZooAnimal animal) {
+        for (Exhibit exhibit : zoo.getExhibits()) {
+            if (exhibit.getAllAnimals().contains(animal)) {
+                exhibit.removeAnimal(animal);
+                zoo.removeAnimal();
+                System.out.println(animal.getName() + " has been removed from " + exhibit.getName());
+                break;
+            }
+        }
     }
     
     private void viewZooStats() {
@@ -331,12 +357,12 @@ public class ZooApp {
     
     private void initializeAvailableAnimals() {
         availableAnimals = new ArrayList<>();
-        availableAnimals.add(new Duck(80, 3));
-        availableAnimals.add(new Lion(90, 8));
-        availableAnimals.add(new Eagle(85, 4));
-        availableAnimals.add(new Dolphin(95, 6));
+        availableAnimals.add(new Tortoise(70, 5)); 
+        availableAnimals.add(new Duck(80, 3));  
         availableAnimals.add(new Penguin(75, 4));
-        availableAnimals.add(new Tortoise(70, 5));
+        availableAnimals.add(new Eagle(85, 4));
+        availableAnimals.add(new Lion(90, 8));
+        availableAnimals.add(new Dolphin(95, 6));
     }
     
     private ZooAnimal createAnimalFromTemplate(ZooAnimal template) {
@@ -358,13 +384,30 @@ public class ZooApp {
     
     private int getIntInput(String prompt) {
         System.out.print(prompt);
-        while (!sc.hasNextInt()) {
-            System.out.print("not valid int");
-            sc.next();
+        
+        String input = sc.nextLine();
+
+        int out = -1;
+        boolean valid = false;
+
+        while(!input.equalsIgnoreCase("exit") && !valid) {
+            try {
+                out = Integer.parseInt(input);
+                valid = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Not a valid integer. Please try again.");
+                System.out.print(prompt);
+                input = sc.nextLine();
+            }
         }
-        int result = sc.nextInt();
-        sc.nextLine();
-        return result;
+        
+        if(input.equalsIgnoreCase("exit")) {
+            System.exit(0);
+            return -1;
+        }
+
+        return out;
+    
     }
     
     private String getStringInput(String prompt) {

@@ -10,6 +10,10 @@ public class AquaticHabitat extends Habitat {
 
 
     public boolean removeAnimal() {
+        if (animals.size() > 0) {
+            animals.remove(animals.size() - 1);
+            return true;
+        }
         return false;
     }
 
