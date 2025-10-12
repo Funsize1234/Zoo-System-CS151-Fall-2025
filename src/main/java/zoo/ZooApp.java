@@ -211,18 +211,18 @@ public class ZooApp {
             return;
         }
         System.out.println("\n=== Available Exhibits in your Zoo ===");
-        int option = 1;
+        int option = 0;
         for (Exhibit e : exhibitList) {
+            option++;
             System.out.println(option + ". " + e.getName());
-            ++option;
         }
-        int choice = getIntInput("Please choose which exhibit (1-" + (option - 1) + ") you would like to interact with: ");
-        if (!(choice >= 1 && choice <= option - 1)) {
+        int choice = getIntInput("Please choose which exhibit (1-" + option + ") you would like to interact with: ");
+        if (!(choice >= 1 && choice <= option)) {
             System.out.println("Invalid exhibit. Please enter a valid number next time.");
             return;
         }
 
-        Exhibit chosenExhibit = exhibitList.get(option - 2);
+        Exhibit chosenExhibit = exhibitList.get(choice - 1);
         List<ZooAnimal> animalList = chosenExhibit.getAllAnimals();
         System.out.println(chosenExhibit.getName());
         if (animalList.isEmpty()) {
