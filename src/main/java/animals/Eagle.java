@@ -21,11 +21,13 @@ public class Eagle extends ZooAnimal implements Flyable, Runnable {
 
     @Override
     public int performAirTricks() {
+        System.out.println(name + " soars around the habitat at incredible speed, drawing the attention of more visitors");
         return getTrickPoints();
     }
     
     @Override
     public int performGroundTricks() {
+        System.out.println(name + " walks around the floor, drawing the attention of more visitors");
         return getTrickPoints();
     }
 

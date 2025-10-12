@@ -21,11 +21,13 @@ public class Penguin extends ZooAnimal implements Swimmable, Runnable {
 
     @Override
     public int performWaterTricks() {
+        System.out.println(name + " gracefully traverses the waters, drawing the attention of more visitors");
         return getTrickPoints();
     }
 
     @Override
     public int performGroundTricks() {
+        System.out.println(name + " waddles around cutely, drawing the attention of more visitors");
         return getTrickPoints();
     }
     

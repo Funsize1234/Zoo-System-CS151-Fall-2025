@@ -15,6 +15,7 @@ public class Lion extends ZooAnimal implements Runnable {
 
     @Override
     public int performGroundTricks() {
+        System.out.println(name + " roars loudly, drawing the attention of more visitors");
         return getTrickPoints();
     }
     
