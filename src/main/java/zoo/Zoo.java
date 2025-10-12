@@ -13,8 +13,8 @@ public class Zoo {
     private int visitors;
     private int points;
     private List<Exhibit> exhibits;
-    private static int instances = 0;
-    private static final int MAX_INSTANCES = 1;
+    public static int instances = 0;
+    public static final int MAX_INSTANCES = 1;
 
     public Zoo() throws MaxInstancesExceededException {
         instances++;

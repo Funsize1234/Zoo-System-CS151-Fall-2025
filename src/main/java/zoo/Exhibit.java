@@ -20,8 +20,8 @@ public class Exhibit {
     private boolean hasAquatic;
     private boolean hasGround;
 
-    private static int instances = 0;
-    private static final int MAX_INSTANCES = 100; 
+    public static int instances = 0;
+    public static final int MAX_INSTANCES = 100; 
     
     
     public Exhibit(String name, boolean hasAviary, boolean hasAquatic, boolean hasGround) throws MaxInstancesExceededException{

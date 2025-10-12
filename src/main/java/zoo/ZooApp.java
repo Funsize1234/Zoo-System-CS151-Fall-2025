@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
 
 import src.main.java.animals.Dolphin;
 import src.main.java.animals.Duck;
@@ -24,12 +25,16 @@ public class ZooApp {
     private Zoo zoo;
     private List<ZooAnimal> availableAnimals;
     private String zooName;
-    private static int instances = 0;
-    private static final int MAX_INSTANCES = 1;
+    public static int instances = 0;
+    public static final int MAX_INSTANCES = 1;
 
 
     public ZooApp(Scanner sc) throws MaxInstancesExceededException {
-        
+        instances++;
+        if (instances > MAX_INSTANCES) {
+            throw new MaxInstancesExceededException("Zoo", instances, MAX_INSTANCES);
+        }
+
         this.sc = sc;
         this.zoo = new Zoo();
         initializeAvailableAnimals();
@@ -139,7 +144,14 @@ public class ZooApp {
         }
         
         String name = getStringInput("Enter exhibit name: ");
-        Exhibit exhibit = new Exhibit(name, hasAviary, hasAquatic, hasGround);
+
+        Exhibit exhibit;
+        try {
+            exhibit = new Exhibit(name, hasAviary, hasAquatic, hasGround);
+        } catch(MaxInstancesExceededException miee) {
+            System.out.println(miee.getMessage());
+            return;
+        }
         
         if (zoo.spendPoints(totalCost)) {
             zoo.addExhibit(exhibit);
@@ -459,7 +471,7 @@ public class ZooApp {
         return out;
     }
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws MaxInstancesExceededException {
         Scanner sc = new Scanner(System.in);
         ZooApp app = new ZooApp(sc);
         app.start();
