@@ -15,6 +15,7 @@ public class Dolphin extends ZooAnimal implements Swimmable {
 
     @Override
     public int performWaterTricks() {
+        System.out.println(name + " somersaults out of the water, drawing the attention of more visitors");
         return getTrickPoints();
     }
 
