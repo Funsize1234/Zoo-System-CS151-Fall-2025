@@ -11,7 +11,7 @@ public class Zoo {
     private int totalAnimals;
 
     public Zoo() {
-        this.visitors = 0;
+        this.visitors = 49;
         this.points = 200;
         this.exhibits = new ArrayList<>();
         this.totalAnimals = 0;
@@ -30,6 +30,9 @@ public class Zoo {
         if(visitors < capacity) {
             visitors++;
             System.out.println("Visitor Entered!");
+        } else {
+            System.out.println("Zoo has reached Maximum Capacity! Closing for Reconstruction");
+            System.exit(0);
         }
     }
 

@@ -216,7 +216,7 @@ public class ZooApp {
             System.out.println(option + ". " + e.getName());
             ++option;
         }
-        int choice = getIntInput("Please choose which exhibit (1-" + (option - 1) + ") you would like to interact with.");
+        int choice = getIntInput("Please choose which exhibit (1-" + (option - 1) + ") you would like to interact with: ");
         if (!(choice >= 1 && choice <= option - 1)) {
             System.out.println("Invalid exhibit. Please enter a valid number next time.");
             return;
@@ -236,7 +236,7 @@ public class ZooApp {
             ++option;
         }
 
-        choice = getIntInput("Please choose which animal (1-" + (option - 1) + ") you would like to interact with");
+        choice = getIntInput("Please choose which animal (1-" + (option - 1) + ") you would like to interact with: ");
         if (!(choice >= 1 && choice <= option - 1)) {
             System.out.println("No such animal can be found. Please enter a valid number next time.");
             return;

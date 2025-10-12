@@ -15,6 +15,7 @@ public class Tortoise extends ZooAnimal implements Runnable {
     
     @Override
     public int performGroundTricks() {
+        System.out.println(super.name + " the Tortoise raises his leg slowly!");
         return getTrickPoints();
     }
     
