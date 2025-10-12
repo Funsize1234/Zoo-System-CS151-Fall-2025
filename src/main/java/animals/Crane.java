@@ -2,14 +2,21 @@ package src.main.java.animals;
 
 import src.main.java.animals.animalTypes.Flyable;
 import src.main.java.animals.animalTypes.Swimmable;
+import src.main.java.exceptions.MaxInstancesExceededException;
 import src.main.java.animals.animalTypes.Runnable;
 
 
 public class Crane extends ZooAnimal implements Flyable, Runnable, Swimmable {
     
+    public static int instances = 0;
+    public static final int MAX_INSTANCES = 100;
     
-    public Crane(int health, int size) {
+    public Crane(int health, int size) throws MaxInstancesExceededException {
         super(health, size, 100, 10, 30);
+        instances++;
+        if (instances > MAX_INSTANCES) {
+            throw new MaxInstancesExceededException("Crane", instances, MAX_INSTANCES);
+        }
     }
 
 
