@@ -12,35 +12,42 @@ public class Duck extends ZooAnimal implements Flyable, Runnable, Swimmable {
 
     @Override
     public int run() {
+        System.out.println(name + " waddles around cutely, drawing some attention.");
         return getBasicPoints();
     }
 
     @Override
     public int fly() {
+        int random = (int)(Math.random() * 2);
+        if (random == 0)
+            System.out.println(name + " flies to a nearby branch, drawing some attention.");
+        else
+            System.out.println(name + " flies to an open spot on the ground, drawing some attention.");
         return getBasicPoints();
     }
 
     @Override
     public int swim() {
+        System.out.println(name + " swims cheerfully in the water, drawing some attention.");
         return getBasicPoints();
     }
     
 
     @Override
     public int performWaterTricks() {
-        System.out.println(name + " sits on the water and moves in a zig-zag shape, drawing the attention of more visitors");
+        System.out.println(name + " sits on the water and moves in a zig-zag shape, drawing the attention of more visitors.");
         return getTrickPoints();
     }
 
     @Override
     public int performAirTricks() {
-        System.out.println(name + " flies quickly up and down, drawing the attention of more visitors");
+        System.out.println(name + " flies quickly up and down, drawing the attention of more visitors.");
         return getTrickPoints();
     }
     
     @Override
     public int performGroundTricks() {
-        System.out.println(name + " waddles around cutely, drawing the attention of more visitors");
+        System.out.println(name + " waddles around erratically, drawing the attention of more visitors, but also their concern.");
         return getTrickPoints();
     }
 
