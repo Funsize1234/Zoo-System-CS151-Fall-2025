@@ -416,7 +416,12 @@ public class ZooApp {
     
     private String getStringInput(String prompt) {
         System.out.print(prompt);
-        return sc.nextLine();
+        String out = sc.nextLine();
+        if(out.equalsIgnoreCase("exit")) {
+            System.exit(0);
+            return null;
+        }
+        return out;
     }
     
     public static void main(String[] args) {
