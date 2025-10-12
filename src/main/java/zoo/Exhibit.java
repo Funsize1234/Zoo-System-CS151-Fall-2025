@@ -8,123 +8,135 @@ import src.main.java.animals.animalTypes.Flyable;
 import src.main.java.animals.animalTypes.Runnable;
 import src.main.java.animals.animalTypes.Swimmable;
 import src.main.java.exceptions.ExhibitMismatchException;
-import src.main.java.habitats.Habitat;
+
 
 public class Exhibit {
     private String name;
-    private List<Habitat> habitats;
     private List<ZooAnimal> allAnimals;
+    private List<Integer> attributes;
+    public final static int AQUATIC = 1;
+    public final static int AVIARY = 2;
+    public final static int GROUND = 3;
     
     public Exhibit(String name) {
         this.name = name;
-        this.habitats = new ArrayList<>();
         this.allAnimals = new ArrayList<>();
+        this.attributes = new ArrayList<>(2);
     }
     
     public String getName() {
         return name;
     }
     
-    public List<Habitat> getHabitats() {
-        return habitats;
-    }
-    
     public List<ZooAnimal> getAllAnimals() {
         return allAnimals;
     }
-    
-    public void addHabitat(Habitat habitat) {
-        habitats.add(habitat);
+
+    public List<Integer> getAttributes() {
+        return attributes;
     }
-    
-    public boolean removeHabitat(Habitat habitat) {
-        return habitats.remove(habitat);
+
+    public boolean addAttribute(int attribute) {
+        if (attributes.size() == 3 || attribute < 1 || attribute > 3)
+            return false;
+        return attributes.add(attribute);
     }
 
     public boolean addAnimal(ZooAnimal animal) {
-        boolean added = false;
+        Class<?> c = animal.getClass();
+        List<Integer> atts = attributeInt(c);
+        for (int att : atts) {
+            if (!attributes.contains(att)) {
+                System.out.println("No valid habitat available for the following animal");
+                return false;
+            }        
+        }
+        return allAnimals.add(animal);
 
-        //these are checking if the exhibit has all the required habitats for the animal
-        if (animal instanceof Swimmable) {
-            for (Habitat habitat : habitats) {
-                if (habitat.getClass().getSimpleName().equals("AquaticHabitat")) {
-                    if (habitat.addAnimal(animal)) {
-                        allAnimals.add(animal);
-                        added = true;
-                        break;
-                    }
-                }
-            }
-            if (!added) {
-                System.out.println("No aquatic habitat available!");
-                return false;
-            }
-        }
+        // boolean added = false;
+
+        // //these are checking if the exhibit has all the required habitats for the animal
+        // if (animal instanceof Swimmable) {
+        //     for (Habitat habitat : habitats) {
+        //         if (habitat.addAnimal(animal)) {
+        //                 allAnimals.add(animal);
+        //                 added = true;
+        //                 break;
+        //             }
+        //     }
+        //     if (!added) {
+        //         System.out.println("No aquatic habitat available!");
+        //         return false;
+        //     }
+        // }
         
-        if (animal instanceof Flyable) {
-            boolean hasAviary = false;
-            for (Habitat habitat : habitats) {
-                if (habitat.getClass().getSimpleName().equals("AviaryHabitat")) {
-                    hasAviary = true;
-                    if (habitat.addAnimal(animal)) {
-                        if (!allAnimals.contains(animal)) {
-                            allAnimals.add(animal);
-                        }
-                        added = true;
-                        break;
-                    }
-                }
-            }
-            if (!hasAviary) {
-                System.out.println("No aviary habitat available!");
-                return false;
-            }
-        }
+        // if (animal instanceof Flyable) {
+        //     boolean hasAviary = false;
+        //     for (Habitat habitat : habitats) {
+        //         if (habitat.getClass().getSimpleName().equals("AviaryHabitat")) {
+        //             hasAviary = true;
+        //             if (habitat.addAnimal(animal)) {
+        //                 if (!allAnimals.contains(animal)) {
+        //                     allAnimals.add(animal);
+        //                 }
+        //                 added = true;
+        //                 break;
+        //             }
+        //         }
+        //     }
+        //     if (!hasAviary) {
+        //         System.out.println("No aviary habitat available!");
+        //         return false;
+        //     }
+        // }
         
-        if (animal instanceof Runnable) {
-            boolean hasGround = false;
-            for (Habitat habitat : habitats) {
-                if (habitat.getClass().getSimpleName().equals("GroundHabitat")) {
-                    hasGround = true;
-                    if (habitat.addAnimal(animal)) {
-                        if (!allAnimals.contains(animal)) {
-                            allAnimals.add(animal);
-                        }
-                        added = true;
-                        break;
-                    }
-                }
-            }
-            if (!hasGround) {
-                System.out.println("No ground habitat available!");
-                return false;
-            }
-        }
+        // if (animal instanceof Runnable) {
+        //     boolean hasGround = false;
+        //     for (Habitat habitat : habitats) {
+        //         if (habitat.getClass().getSimpleName().equals("GroundHabitat")) {
+        //             hasGround = true;
+        //             if (habitat.addAnimal(animal)) {
+        //                 if (!allAnimals.contains(animal)) {
+        //                     allAnimals.add(animal);
+        //                 }
+        //                 added = true;
+        //                 break;
+        //             }
+        //         }
+        //     }
+        //     if (!hasGround) {
+        //         System.out.println("No ground habitat available!");
+        //         return false;
+        //     }
+        // }
         
-        return added;
+        // return added;
     }
 
     public int getTotalAnimals() {
         return allAnimals.size();
     }
     
-    public String getHabitatTypes() {
-        StringBuilder types = new StringBuilder();
-        for (Habitat habitat : habitats) {
-            if (types.length() > 0) types.append(", ");
-            // basically removes the repetition of habitat
-            types.append(habitat.getClass().getSimpleName().replace("Habitat", ""));
+    public List<Integer> attributeInt(Class<?> c) {
+        ArrayList<Integer> a = new ArrayList();
+        for (Class<?> iface : c.getInterfaces()) {
+            if (Flyable.class.isAssignableFrom(iface))
+                a.add(AVIARY);
+            else if (Swimmable.class.isAssignableFrom(iface))
+                a.add(AQUATIC);
+            else if (src.main.java.animals.animalTypes.Runnable.class.isAssignableFrom(iface))
+                a.add(GROUND);
         }
-        return types.toString();
+        return a;
     }
 
-    public boolean removeAnimal(ZooAnimal animal) {
-        boolean removed = allAnimals.remove(animal);
+    // public boolean removeAnimal(ZooAnimal animal) {
+    //     boolean removed = allAnimals.remove(animal);
         
-        for (Habitat habitat : habitats) {
-            habitat.removeAnimal(animal);
-        }
+    //     for (Habitat habitat : habitats) {
+    //         habitat.removeAnimal(animal);
+    //     }
         
-        return removed;
-    }
+    //     return removed;
+    // }
 }
