@@ -11,7 +11,7 @@ public class Zoo {
     private int totalAnimals;
 
     public Zoo() {
-        this.visitors = 49;
+        this.visitors = 0;
         this.points = 200;
         this.exhibits = new ArrayList<>();
         this.totalAnimals = 0;
