@@ -29,5 +29,4 @@ public abstract class Habitat {
     public boolean removeAnimal(ZooAnimal animal) {
         return animals.remove(animal);
     }
-
 }

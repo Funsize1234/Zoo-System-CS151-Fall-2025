@@ -60,6 +60,10 @@ public class Zoo {
     public void addExhibit(Exhibit exhibit) {
         exhibits.add(exhibit);
     }
+
+    public boolean removeExhibit(Exhibit exhibit) {
+        return exhibits.remove(exhibit);
+    }
     
     //every 2 animals, a visitor is added
     public void addAnimal() {
@@ -68,6 +72,13 @@ public class Zoo {
         if (totalAnimals % 2 == 0) {
             addVisitor();
         }
+    }
+
+    public boolean removeAnimal() {
+        if (totalAnimals <= 0)
+            return false;
+        --totalAnimals;
+        return true;
     }
     
     public int getPoints() {
