@@ -10,6 +10,8 @@ import src.main.java.animals.Eagle;
 import src.main.java.animals.Lion;
 import src.main.java.animals.Penguin;
 import src.main.java.animals.Tortoise;
+import src.main.java.animals.Crane;
+import src.main.java.animals.Otter;
 import src.main.java.animals.ZooAnimal;
 import src.main.java.animals.animalTypes.Flyable;
 import src.main.java.animals.animalTypes.Swimmable;
@@ -367,9 +369,13 @@ public class ZooApp {
             availableAnimals.add(new Eagle(85, 4));
             availableAnimals.add(new Lion(90, 8));
             availableAnimals.add(new Dolphin(95, 6));
-        } catch(MaxInstancesExceededException miee) {
+            availableAnimals.add(new Crane(80, 5));
+            availableAnimals.add(new Otter(70, 4));
+        } catch (MaxInstancesExceededException miee) {
             System.out.println(miee.getMessage());
         }
+        
+
         
     }
     
@@ -387,10 +393,15 @@ public class ZooApp {
                 return new Penguin(template.getHealth(), template.getSize());
             } else if (template instanceof Tortoise) {
                 return new Tortoise(template.getHealth(), template.getSize());
+            } else if (template instanceof Crane) {
+                return new Crane(template.getHealth(), template.getSize());
+            } else if (template instanceof Otter) {
+                return new Otter(template.getHealth(), template.getSize());
             }
         } catch (MaxInstancesExceededException miee) {
             System.out.println(miee.getMessage());
         }
+        
         return null;
     }
     
