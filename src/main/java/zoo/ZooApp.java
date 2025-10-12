@@ -3,6 +3,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
+
 import src.main.java.animals.Dolphin;
 import src.main.java.animals.Duck;
 import src.main.java.animals.Eagle;
@@ -382,13 +384,30 @@ public class ZooApp {
     
     private int getIntInput(String prompt) {
         System.out.print(prompt);
-        while (!sc.hasNextInt()) {
-            System.out.print("not valid int");
-            sc.next();
+        
+        String input = sc.nextLine();
+
+        int out = -1;
+        boolean valid = false;
+
+        while(!input.equalsIgnoreCase("exit") && !valid) {
+            try {
+                out = Integer.parseInt(input);
+                valid = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Not a valid integer. Please try again.");
+                System.out.print(prompt);
+                input = sc.nextLine();
+            }
         }
-        int result = sc.nextInt();
-        sc.nextLine();
-        return result;
+        
+        if(input.equalsIgnoreCase("exit")) {
+            System.exit(0);
+            return -1;
+        }
+
+        return out;
+    
     }
     
     private String getStringInput(String prompt) {
