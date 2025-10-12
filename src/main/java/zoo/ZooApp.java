@@ -412,6 +412,7 @@ public class ZooApp {
         }
         
         if(input.equalsIgnoreCase("exit")) {
+            sc.close();
             System.exit(0);
             return -1;
         }
@@ -424,6 +425,7 @@ public class ZooApp {
         System.out.print(prompt);
         String out = sc.nextLine();
         if(out.equalsIgnoreCase("exit")) {
+            sc.close();
             System.exit(0);
             return null;
         }
@@ -434,5 +436,6 @@ public class ZooApp {
         Scanner sc = new Scanner(System.in);
         ZooApp app = new ZooApp(sc);
         app.start();
+        sc.close();
     }
 }
