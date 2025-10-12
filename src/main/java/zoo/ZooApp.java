@@ -17,6 +17,7 @@ import src.main.java.animals.animalTypes.Flyable;
 import src.main.java.animals.animalTypes.Swimmable;
 import src.main.java.exceptions.AnimalNotFoundException;
 import src.main.java.exceptions.ExhibitMismatchException;
+import src.main.java.exceptions.MaxInstancesExceededException;
 
 public class ZooApp {
     private final Scanner sc;
@@ -212,18 +213,18 @@ public class ZooApp {
             return;
         }
         System.out.println("\n=== Available Exhibits in your Zoo ===");
-        int option = 1;
+        int option = 0;
         for (Exhibit e : exhibitList) {
+            option++;
             System.out.println(option + ". " + e.getName());
-            ++option;
         }
-        int choice = getIntInput("Please choose which exhibit (1-" + (option - 1) + ") you would like to interact with: ");
-        if (!(choice >= 1 && choice <= option - 1)) {
+        int choice = getIntInput("Please choose which exhibit (1-" + option + ") you would like to interact with: ");
+        if (!(choice >= 1 && choice <= option)) {
             System.out.println("Invalid exhibit. Please enter a valid number next time.");
             return;
         }
 
-        Exhibit chosenExhibit = exhibitList.get(option - 2);
+        Exhibit chosenExhibit = exhibitList.get(choice - 1);
         List<ZooAnimal> animalList = chosenExhibit.getAllAnimals();
         System.out.println(chosenExhibit.getName());
         if (animalList.isEmpty()) {
@@ -366,28 +367,32 @@ public class ZooApp {
         availableAnimals.add(new Eagle(85, 4));
         availableAnimals.add(new Lion(90, 8));
         availableAnimals.add(new Dolphin(95, 6));
-        availableAnimals.add(new Crane(80, 5));
-        availableAnimals.add(new Otter(70, 4));
+        
     }
     
     private ZooAnimal createAnimalFromTemplate(ZooAnimal template) {
-        if (template instanceof Duck) {
-            return new Duck(template.getHealth(), template.getSize());
-        } else if (template instanceof Lion) {
-            return new Lion(template.getHealth(), template.getSize());
-        } else if (template instanceof Eagle) {
-            return new Eagle(template.getHealth(), template.getSize());
-        } else if (template instanceof Dolphin) {
-            return new Dolphin(template.getHealth(), template.getSize());
-        } else if (template instanceof Penguin) {
-            return new Penguin(template.getHealth(), template.getSize());
-        } else if (template instanceof Tortoise) {
-            return new Tortoise(template.getHealth(), template.getSize());
-        } else if (template instanceof Crane) {
-            return new Crane(template.getHealth(), template.getSize());
-        } else if (template instanceof Otter) {
-            return new Otter(template.getHealth(), template.getSize());
+        try {
+            if (template instanceof Duck) {
+                return new Duck(template.getHealth(), template.getSize());
+            } else if (template instanceof Lion) {
+                return new Lion(template.getHealth(), template.getSize());
+            } else if (template instanceof Eagle) {
+                return new Eagle(template.getHealth(), template.getSize());
+            } else if (template instanceof Dolphin) {
+                return new Dolphin(template.getHealth(), template.getSize());
+            } else if (template instanceof Penguin) {
+                return new Penguin(template.getHealth(), template.getSize());
+            } else if (template instanceof Tortoise) {
+                return new Tortoise(template.getHealth(), template.getSize());
+            } else if (template instanceof Crane) {
+                return new Crane(template.getHealth(), template.getSize());
+            } else if (template instanceof Otter) {
+                return new Otter(template.getHealth(), template.getSize());
+            }
+        } catch (MaxInstancesExceededException miee) {
+            System.out.println(miee.getMessage());
         }
+        
         return null;
     }
     

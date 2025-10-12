@@ -1,11 +1,19 @@
 package src.main.java.animals;
 
 import src.main.java.animals.animalTypes.Runnable;
+import src.main.java.exceptions.MaxInstancesExceededException;
 
 public class Lion extends ZooAnimal implements Runnable {
 
-    public Lion(int health, int size) {
+    public static int instances = 0;
+    public static final int MAX_INSTANCES = 100;
+
+    public Lion(int health, int size) throws MaxInstancesExceededException {
         super(health, size, 200, 12, 40);
+        instances++;
+        if (instances > MAX_INSTANCES) {
+            throw new MaxInstancesExceededException("Lion", instances, MAX_INSTANCES);
+        }
     }
 
     @Override

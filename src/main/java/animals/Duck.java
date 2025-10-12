@@ -3,11 +3,20 @@ package src.main.java.animals;
 import src.main.java.animals.animalTypes.Flyable;
 import src.main.java.animals.animalTypes.Runnable;
 import src.main.java.animals.animalTypes.Swimmable;
+import src.main.java.exceptions.ExhibitMismatchException;
+import src.main.java.exceptions.MaxInstancesExceededException;
 
 public class Duck extends ZooAnimal implements Flyable, Runnable, Swimmable {
 
-    public Duck(int health, int size) {
+    public static int instances = 0;
+    public static final int MAX_INSTANCES = 100;
+
+    public Duck(int health, int size) throws MaxInstancesExceededException {
         super(health, size, 75, 8, 25);
+        instances++;
+        if(instances > MAX_INSTANCES) {
+            throw new MaxInstancesExceededException("Duck", instances, MAX_INSTANCES);
+        }
     }
 
     @Override

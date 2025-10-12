@@ -59,7 +59,7 @@ public class Exhibit {
                 return;
             }
         }
-        throw new AnimalNotFoundException();
+        throw new AnimalNotFoundException(animal);
     }
 
     public String getHabitats() {
