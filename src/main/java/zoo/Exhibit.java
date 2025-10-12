@@ -9,6 +9,7 @@ import src.main.java.animals.animalTypes.Runnable;
 import src.main.java.animals.animalTypes.Swimmable;
 import src.main.java.exceptions.AnimalNotFoundException;
 import src.main.java.exceptions.ExhibitMismatchException;
+import src.main.java.exceptions.MaxInstancesExceededException;
 
 
 public class Exhibit {
@@ -18,9 +19,17 @@ public class Exhibit {
     private boolean hasAviary;
     private boolean hasAquatic;
     private boolean hasGround;
+
+    private static int instances = 0;
+    private static final int MAX_INSTANCES = 100; 
     
     
-    public Exhibit(String name, boolean hasAviary, boolean hasAquatic, boolean hasGround) {
+    public Exhibit(String name, boolean hasAviary, boolean hasAquatic, boolean hasGround) throws MaxInstancesExceededException{
+        instances++;
+        if (instances > MAX_INSTANCES) {
+            throw new MaxInstancesExceededException("Crane", instances, MAX_INSTANCES);
+        }
+
         this.name = name;
         this.allAnimals = new ArrayList<>();
 

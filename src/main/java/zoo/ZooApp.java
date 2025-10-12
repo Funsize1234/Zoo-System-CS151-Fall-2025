@@ -24,8 +24,12 @@ public class ZooApp {
     private Zoo zoo;
     private List<ZooAnimal> availableAnimals;
     private String zooName;
+    private static int instances = 0;
+    private static final int MAX_INSTANCES = 1;
 
-    public ZooApp(Scanner sc) {
+
+    public ZooApp(Scanner sc) throws MaxInstancesExceededException {
+        
         this.sc = sc;
         this.zoo = new Zoo();
         initializeAvailableAnimals();
@@ -357,7 +361,17 @@ public class ZooApp {
     }
     
     private void viewZooStats() {
-        System.out.println("to be implemented");
+        System.out.println("\nZoo (Visitors: " + zoo.getVisitors() + "/" + zoo.getCapacity() + ")" + " | Points: " + zoo.getPoints());
+        for (Exhibit exhibit : zoo.getExhibits()) {
+            System.out.println("   " + exhibit.getName() + " Exhibit (Habitats: " + exhibit.getHabitats().replace(" ", ", ") + ")");
+
+            for (ZooAnimal animal : exhibit.getAllAnimals()) {
+                String species = animal.getClass().getSimpleName();
+                String name = animal.getName();
+
+                System.out.println("      " + species + " - Name: " + name + ", Health: " + animal.getHealth());
+            }
+        }
     }
     
     private void initializeAvailableAnimals() {

@@ -6,21 +6,34 @@ import java.util.List;
 import src.main.java.animals.ZooAnimal;
 import src.main.java.exceptions.AnimalNotFoundException;
 import src.main.java.exceptions.ExhibitMismatchException;
+import src.main.java.exceptions.MaxInstancesExceededException;
 
 public class Zoo {
     private int capacity;
     private int visitors;
     private int points;
     private List<Exhibit> exhibits;
+    private static int instances = 0;
+    private static final int MAX_INSTANCES = 1;
 
-    public Zoo() {
+    public Zoo() throws MaxInstancesExceededException {
+        instances++;
+        if (instances > MAX_INSTANCES) {
+            throw new MaxInstancesExceededException("Zoo", instances, MAX_INSTANCES);
+        }
+
         this.visitors = 0;
         this.points = 500;
         this.exhibits = new ArrayList<>();
         this.capacity = 50;
     }
 
-    public Zoo(int capacity, int points) {
+    public Zoo(int capacity, int points) throws MaxInstancesExceededException {
+        instances++;
+        if (instances > MAX_INSTANCES) {
+            throw new MaxInstancesExceededException("Zoo", instances, MAX_INSTANCES);
+        }
+
         this.capacity = capacity;
         this.visitors = 0;
         this.points = points;
