@@ -15,6 +15,7 @@ import src.main.java.animals.animalTypes.Flyable;
 import src.main.java.animals.animalTypes.Swimmable;
 import src.main.java.exceptions.AnimalNotFoundException;
 import src.main.java.exceptions.ExhibitMismatchException;
+import src.main.java.exceptions.MaxInstancesExceededException;
 
 public class ZooApp {
     private final Scanner sc;
@@ -357,28 +358,37 @@ public class ZooApp {
     }
     
     private void initializeAvailableAnimals() {
-        availableAnimals = new ArrayList<>();
-        availableAnimals.add(new Tortoise(70, 5)); 
-        availableAnimals.add(new Duck(80, 3));  
-        availableAnimals.add(new Penguin(75, 4));
-        availableAnimals.add(new Eagle(85, 4));
-        availableAnimals.add(new Lion(90, 8));
-        availableAnimals.add(new Dolphin(95, 6));
+        try {
+            availableAnimals = new ArrayList<>();
+            availableAnimals.add(new Tortoise(70, 5)); 
+            availableAnimals.add(new Duck(80, 3));  
+            availableAnimals.add(new Penguin(75, 4));
+            availableAnimals.add(new Eagle(85, 4));
+            availableAnimals.add(new Lion(90, 8));
+            availableAnimals.add(new Dolphin(95, 6));
+        } catch(MaxInstancesExceededException miee) {
+            System.out.println(miee.getMessage());
+        }
+        
     }
     
     private ZooAnimal createAnimalFromTemplate(ZooAnimal template) {
-        if (template instanceof Duck) {
-            return new Duck(template.getHealth(), template.getSize());
-        } else if (template instanceof Lion) {
-            return new Lion(template.getHealth(), template.getSize());
-        } else if (template instanceof Eagle) {
-            return new Eagle(template.getHealth(), template.getSize());
-        } else if (template instanceof Dolphin) {
-            return new Dolphin(template.getHealth(), template.getSize());
-        } else if (template instanceof Penguin) {
-            return new Penguin(template.getHealth(), template.getSize());
-        } else if (template instanceof Tortoise) {
-            return new Tortoise(template.getHealth(), template.getSize());
+        try {
+            if (template instanceof Duck) {
+                return new Duck(template.getHealth(), template.getSize());
+            } else if (template instanceof Lion) {
+                return new Lion(template.getHealth(), template.getSize());
+            } else if (template instanceof Eagle) {
+                return new Eagle(template.getHealth(), template.getSize());
+            } else if (template instanceof Dolphin) {
+                return new Dolphin(template.getHealth(), template.getSize());
+            } else if (template instanceof Penguin) {
+                return new Penguin(template.getHealth(), template.getSize());
+            } else if (template instanceof Tortoise) {
+                return new Tortoise(template.getHealth(), template.getSize());
+            }
+        } catch (MaxInstancesExceededException miee) {
+            System.out.println(miee.getMessage());
         }
         return null;
     }

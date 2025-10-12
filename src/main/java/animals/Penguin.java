@@ -2,11 +2,19 @@ package src.main.java.animals;
 
 import src.main.java.animals.animalTypes.Runnable;
 import src.main.java.animals.animalTypes.Swimmable;
+import src.main.java.exceptions.MaxInstancesExceededException;
 
 public class Penguin extends ZooAnimal implements Swimmable, Runnable {
 
-    public Penguin(int health, int size) {
+    public static int instances = 0;
+    public static final int MAX_INSTANCES = 100;
+
+    public Penguin(int health, int size) throws MaxInstancesExceededException {
         super(health, size, 100, 6, 20);
+        instances++;
+        if (instances > MAX_INSTANCES) {
+            throw new MaxInstancesExceededException("Penguin", instances, MAX_INSTANCES);
+        }
     }
     
     @Override
