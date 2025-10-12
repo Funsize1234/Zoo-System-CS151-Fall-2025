@@ -103,14 +103,6 @@ public class Exhibit {
         return added;
     }
 
-    public boolean removeAnimal(ZooAnimal animal) {
-        for (Habitat h : habitats) {
-            if (h.getAnimals().contains(animal)) {}
-                return h.removeAnimal(animal) && allAnimals.remove(animal);
-        }
-        return false;
-    }
-    
     public int getTotalAnimals() {
         return allAnimals.size();
     }
