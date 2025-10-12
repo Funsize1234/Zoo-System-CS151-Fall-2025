@@ -32,7 +32,7 @@ public class ZooApp {
     public ZooApp(Scanner sc) throws MaxInstancesExceededException {
         instances++;
         if (instances > MAX_INSTANCES) {
-            throw new MaxInstancesExceededException("Zoo", instances, MAX_INSTANCES);
+            throw new MaxInstancesExceededException("ZooApp", instances, MAX_INSTANCES);
         }
 
         this.sc = sc;

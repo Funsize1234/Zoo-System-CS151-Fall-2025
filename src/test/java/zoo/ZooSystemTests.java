@@ -32,6 +32,9 @@ public class ZooSystemTests {
         Penguin.instances = 0;
         Tortoise.instances = 0;
         Duck.instances = 0;
+        Exhibit.instances = 0;
+        Zoo.instances = 0;
+        ZooApp.instances = 0;
     }
 
     @Test
@@ -158,7 +161,7 @@ public class ZooSystemTests {
 
     @Test
     void createZooThrows() throws Exception {
-        Zoo zoo1 = new Zoo();
+        Zoo z = new Zoo();
         assertThrows(MaxInstancesExceededException.class, () -> new Zoo());
     }
 
@@ -172,7 +175,5 @@ public class ZooSystemTests {
         ZooApp za = new ZooApp(new Scanner(System.in));
         assertThrows(MaxInstancesExceededException.class, () -> new Zoo());
     }
-
-
 
 }

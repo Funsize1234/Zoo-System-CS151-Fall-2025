@@ -27,7 +27,7 @@ public class Exhibit {
     public Exhibit(String name, boolean hasAviary, boolean hasAquatic, boolean hasGround) throws MaxInstancesExceededException{
         instances++;
         if (instances > MAX_INSTANCES) {
-            throw new MaxInstancesExceededException("Crane", instances, MAX_INSTANCES);
+            throw new MaxInstancesExceededException("Exhibit", instances, MAX_INSTANCES);
         }
 
         this.name = name;
