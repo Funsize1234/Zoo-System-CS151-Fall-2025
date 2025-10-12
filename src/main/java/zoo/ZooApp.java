@@ -357,12 +357,12 @@ public class ZooApp {
     
     private void initializeAvailableAnimals() {
         availableAnimals = new ArrayList<>();
-        availableAnimals.add(new Duck(80, 3));
-        availableAnimals.add(new Lion(90, 8));
-        availableAnimals.add(new Eagle(85, 4));
-        availableAnimals.add(new Dolphin(95, 6));
+        availableAnimals.add(new Tortoise(70, 5)); 
+        availableAnimals.add(new Duck(80, 3));  
         availableAnimals.add(new Penguin(75, 4));
-        availableAnimals.add(new Tortoise(70, 5));
+        availableAnimals.add(new Eagle(85, 4));
+        availableAnimals.add(new Lion(90, 8));
+        availableAnimals.add(new Dolphin(95, 6));
     }
     
     private ZooAnimal createAnimalFromTemplate(ZooAnimal template) {
