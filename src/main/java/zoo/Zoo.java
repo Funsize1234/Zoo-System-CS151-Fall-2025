@@ -3,18 +3,20 @@ package src.main.java.zoo;
 import java.util.ArrayList;
 import java.util.List;
 
+import src.main.java.animals.ZooAnimal;
+import src.main.java.exceptions.AnimalNotFoundException;
+import src.main.java.exceptions.ExhibitMismatchException;
+
 public class Zoo {
     private int capacity;
     private int visitors;
     private int points;
     private List<Exhibit> exhibits;
-    private int totalAnimals;
 
     public Zoo() {
         this.visitors = 0;
-        this.points = 200;
+        this.points = 500;
         this.exhibits = new ArrayList<>();
-        this.totalAnimals = 0;
         this.capacity = 50;
     }
 
@@ -23,7 +25,6 @@ public class Zoo {
         this.visitors = 0;
         this.points = points;
         this.exhibits = new ArrayList<>();
-        this.totalAnimals = 0;
     }
 
     public void addVisitor() {
@@ -69,19 +70,15 @@ public class Zoo {
     }
     
     //every 2 animals, a visitor is added
-    public void addAnimal() {
-        totalAnimals++;
-
-        if (totalAnimals % 2 == 0) {
+    public void addAnimal(Exhibit exhibit, ZooAnimal animal) throws ExhibitMismatchException {
+        exhibit.addAnimal(animal);
+        if (getTotalAnimals() % 2 == 0) {
             addVisitor();
         }
     }
 
-    public boolean removeAnimal() {
-        if (totalAnimals <= 0)
-            return false;
-        --totalAnimals;
-        return true;
+    public void removeAnimal(Exhibit exhibit, ZooAnimal animal) throws AnimalNotFoundException {
+        exhibit.removeAnimal(animal);
     }
     
     public int getPoints() {
@@ -93,7 +90,11 @@ public class Zoo {
     }
     
     public int getTotalAnimals() {
-        return totalAnimals;
+        int count = 0;
+        for(Exhibit e : exhibits) {
+            count += e.getTotalAnimals();
+        }
+        return count;
     }
     
     public List<Exhibit> getExhibits() {

@@ -7,21 +7,26 @@ import src.main.java.animals.ZooAnimal;
 import src.main.java.animals.animalTypes.Flyable;
 import src.main.java.animals.animalTypes.Runnable;
 import src.main.java.animals.animalTypes.Swimmable;
+import src.main.java.exceptions.AnimalNotFoundException;
 import src.main.java.exceptions.ExhibitMismatchException;
 
 
 public class Exhibit {
     private String name;
     private List<ZooAnimal> allAnimals;
-    private List<Integer> attributes;
-    public final static int AQUATIC = 1;
-    public final static int AVIARY = 2;
-    public final static int GROUND = 3;
     
-    public Exhibit(String name) {
+    private boolean hasAviary;
+    private boolean hasAquatic;
+    private boolean hasGround;
+    
+    
+    public Exhibit(String name, boolean hasAviary, boolean hasAquatic, boolean hasGround) {
         this.name = name;
         this.allAnimals = new ArrayList<>();
-        this.attributes = new ArrayList<>(2);
+
+        this.hasAviary = hasAviary;
+        this.hasAquatic = hasAquatic;
+        this.hasGround = hasGround;
     }
     
     public String getName() {
@@ -32,111 +37,59 @@ public class Exhibit {
         return allAnimals;
     }
 
-    public List<Integer> getAttributes() {
-        return attributes;
-    }
-
-    public boolean addAttribute(int attribute) {
-        if (attributes.size() == 3 || attribute < 1 || attribute > 3)
-            return false;
-        return attributes.add(attribute);
-    }
-
-    public boolean addAnimal(ZooAnimal animal) {
-        Class<?> c = animal.getClass();
-        List<Integer> atts = attributeInt(c);
-        for (int att : atts) {
-            if (!attributes.contains(att)) {
-                System.out.println("No valid habitat available for the following animal");
-                return false;
-            }        
+    public void addAnimal(ZooAnimal animal) throws ExhibitMismatchException {
+        // check required capabilities, throw if missing
+        if (animal instanceof Flyable && !hasAviary) {
+            throw new ExhibitMismatchException(animal, this);
         }
-        return allAnimals.add(animal);
+        if (animal instanceof src.main.java.animals.animalTypes.Runnable && !hasGround) {
+            throw new ExhibitMismatchException(animal, this);
+        }
+        if (animal instanceof Swimmable && !hasAquatic) {
+            throw new ExhibitMismatchException(animal, this);
+        }
 
-        // boolean added = false;
+        allAnimals.add(animal);
+    }
 
-        // //these are checking if the exhibit has all the required habitats for the animal
-        // if (animal instanceof Swimmable) {
-        //     for (Habitat habitat : habitats) {
-        //         if (habitat.addAnimal(animal)) {
-        //                 allAnimals.add(animal);
-        //                 added = true;
-        //                 break;
-        //             }
-        //     }
-        //     if (!added) {
-        //         System.out.println("No aquatic habitat available!");
-        //         return false;
-        //     }
-        // }
-        
-        // if (animal instanceof Flyable) {
-        //     boolean hasAviary = false;
-        //     for (Habitat habitat : habitats) {
-        //         if (habitat.getClass().getSimpleName().equals("AviaryHabitat")) {
-        //             hasAviary = true;
-        //             if (habitat.addAnimal(animal)) {
-        //                 if (!allAnimals.contains(animal)) {
-        //                     allAnimals.add(animal);
-        //                 }
-        //                 added = true;
-        //                 break;
-        //             }
-        //         }
-        //     }
-        //     if (!hasAviary) {
-        //         System.out.println("No aviary habitat available!");
-        //         return false;
-        //     }
-        // }
-        
-        // if (animal instanceof Runnable) {
-        //     boolean hasGround = false;
-        //     for (Habitat habitat : habitats) {
-        //         if (habitat.getClass().getSimpleName().equals("GroundHabitat")) {
-        //             hasGround = true;
-        //             if (habitat.addAnimal(animal)) {
-        //                 if (!allAnimals.contains(animal)) {
-        //                     allAnimals.add(animal);
-        //                 }
-        //                 added = true;
-        //                 break;
-        //             }
-        //         }
-        //     }
-        //     if (!hasGround) {
-        //         System.out.println("No ground habitat available!");
-        //         return false;
-        //     }
-        // }
-        
-        // return added;
+    public void removeAnimal(ZooAnimal animal) throws AnimalNotFoundException {
+        for(int i = 0; i < this.allAnimals.size(); i++) {
+            if(this.allAnimals.get(i) == animal) {
+                this.allAnimals.remove(i);
+                return;
+            }
+        }
+        throw new AnimalNotFoundException();
+    }
+
+    public String getHabitats() {
+        StringBuilder sb = new StringBuilder();
+        int count = 0;
+
+        if(hasAquatic) {
+            sb.append("Aquatic");
+            count++;
+        }
+        if(hasAviary) {
+            if(count > 0) {
+                sb.append(" ");
+            }
+            sb.append("Aviary");
+            count++;
+        }
+        if(hasGround) {
+            if(count > 0) {
+                sb.append(" ");
+            }
+            sb.append("Ground");
+            count++;
+        }
+
+        return sb.toString();
     }
 
     public int getTotalAnimals() {
         return allAnimals.size();
     }
-    
-    public List<Integer> attributeInt(Class<?> c) {
-        ArrayList<Integer> a = new ArrayList();
-        for (Class<?> iface : c.getInterfaces()) {
-            if (Flyable.class.isAssignableFrom(iface))
-                a.add(AVIARY);
-            else if (Swimmable.class.isAssignableFrom(iface))
-                a.add(AQUATIC);
-            else if (src.main.java.animals.animalTypes.Runnable.class.isAssignableFrom(iface))
-                a.add(GROUND);
-        }
-        return a;
-    }
 
-    // public boolean removeAnimal(ZooAnimal animal) {
-    //     boolean removed = allAnimals.remove(animal);
-        
-    //     for (Habitat habitat : habitats) {
-    //         habitat.removeAnimal(animal);
-    //     }
-        
-    //     return removed;
-    // }
 }

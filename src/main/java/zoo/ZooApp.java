@@ -13,7 +13,8 @@ import src.main.java.animals.Tortoise;
 import src.main.java.animals.ZooAnimal;
 import src.main.java.animals.animalTypes.Flyable;
 import src.main.java.animals.animalTypes.Swimmable;
-import src.main.java.habitats.*;
+import src.main.java.exceptions.AnimalNotFoundException;
+import src.main.java.exceptions.ExhibitMismatchException;
 
 public class ZooApp {
     private final Scanner sc;
@@ -30,7 +31,7 @@ public class ZooApp {
     public void start() {
         System.out.println("Welcome to the Zoo Management System!");
         zooName = getStringInput("What would you like to name your zoo? ");
-        System.out.println("\nWelcome to " + zooName + "Zoo!");
+        System.out.println("\nWelcome to " + zooName + " Zoo!");
         System.out.println("You start with 200 points. Create your first exhibit to get started!");
 
         System.out.println("\n------------Press Enter to Continue------------");
@@ -62,7 +63,7 @@ public class ZooApp {
                     System.out.println("Invalid choice. Please try again.");
 
             }
-            System.out.println("\n------------Press Enter to Continue------------");
+            System.out.print("\n------------Press Enter to Continue------------");
             sc.nextLine();
         }
     }
@@ -131,17 +132,7 @@ public class ZooApp {
         }
         
         String name = getStringInput("Enter exhibit name: ");
-        Exhibit exhibit = new Exhibit(name);
-
-        if (hasGround) {
-            exhibit.addHabitat(new GroundHabitat(5));
-        }
-        if (hasAquatic) {
-            exhibit.addHabitat(new AquaticHabitat(5));
-        }
-        if (hasAviary) {
-            exhibit.addHabitat(new AviaryHabitat(5));
-        }
+        Exhibit exhibit = new Exhibit(name, hasAviary, hasAquatic, hasGround);
         
         if (zoo.spendPoints(totalCost)) {
             zoo.addExhibit(exhibit);
@@ -190,7 +181,7 @@ public class ZooApp {
         List<Exhibit> exhibits = zoo.getExhibits();
         for (int i = 0; i < exhibits.size(); i++) {
             Exhibit exhibit = exhibits.get(i);
-            System.out.println((i + 1) + ". " + exhibit.getName() + " (Habitats: " + exhibit.getHabitatTypes() + ")");
+            System.out.println((i + 1) + ". " + exhibit.getName() + " (Habitats: " + exhibit.getHabitats() + ")");
         }
         
         int exhibitChoice = getIntInput("Select exhibit (1-" + exhibits.size() + "): ") - 1;
@@ -201,13 +192,15 @@ public class ZooApp {
         }
         
         Exhibit selectedExhibit = exhibits.get(exhibitChoice);
-        if (selectedExhibit.addAnimal(selectedAnimal)) {
-            zoo.addAnimal();
+
+        try {
+            zoo.addAnimal(selectedExhibit, selectedAnimal);
             System.out.println("\n" + selectedAnimal.getName() + " added to " + selectedExhibit.getName() + "!");
-        } else {
+        } catch (ExhibitMismatchException eme){
             zoo.addPoints(selectedAnimal.getPurchaseCost());
-            System.out.println("\nFailed to add animal - exhibit doesn't have required habitat types!");
+            System.out.println(eme.getMessage());
         }
+    
     }
     
     private void interactWithAnimals() {
@@ -232,7 +225,7 @@ public class ZooApp {
         List<ZooAnimal> animalList = chosenExhibit.getAllAnimals();
         System.out.println(chosenExhibit.getName());
         if (animalList.isEmpty()) {
-            System.out.println("\nNo animals exist in this exhibit currently.");
+            System.out.println("No animals exist in this exhibit currently.");
             return;
         }
         System.out.println("\n=== Available Animals in " + chosenExhibit.getName() + " ===");
@@ -247,7 +240,14 @@ public class ZooApp {
             System.out.println("\nNo such animal can be found. Please enter a valid number next time.");
             return;
         }
-        interactWithAnimal(animalList.get(option - 2));
+        ZooAnimal animal = animalList.get(option-2);
+        interactWithAnimal(animal);
+
+        if (!animal.isAlive()) {
+            System.out.println("\n" + animal.getName() + " has died from exhaustion!");
+            removeDeadAnimal(chosenExhibit, animal);
+            return;
+        }
     }
     
     private void interactWithAnimal(ZooAnimal animal) {
@@ -306,7 +306,6 @@ public class ZooApp {
         
         String selectedOption = options.get(choice);
         int pointsEarned = 0;
-        System.out.println("\n");
         switch (selectedOption) {
             case "Run":
                 pointsEarned = ((src.main.java.animals.animalTypes.Runnable) animal).run();
@@ -338,26 +337,18 @@ public class ZooApp {
                 break;
         }
         
-        if (!animal.isAlive()) {
-            System.out.println("\n" + animal.getName() + " has died from exhaustion!");
-            removeDeadAnimal(animal);
-            return;
-        }
-        
         if (pointsEarned > 0) {
             zoo.addPoints(pointsEarned);
             System.out.println("Earned " + pointsEarned + " points!");
         }
     }
     
-    private void removeDeadAnimal(ZooAnimal animal) {
-        for (Exhibit exhibit : zoo.getExhibits()) {
-            if (exhibit.getAllAnimals().contains(animal)) {
-                exhibit.removeAnimal(animal);
-                zoo.removeAnimal();
-                System.out.println("\n" + animal.getName() + " has been removed from " + exhibit.getName());
-                break;
-            }
+    private void removeDeadAnimal(Exhibit exhibit, ZooAnimal animal) {
+        try {
+            zoo.removeAnimal(exhibit, animal);
+            System.out.println("\n" + animal.getName() + " has been removed from " + exhibit.getName());
+        } catch (AnimalNotFoundException anfe) {
+            System.out.println(anfe.getMessage());
         }
     }
     
