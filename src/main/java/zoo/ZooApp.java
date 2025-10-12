@@ -36,7 +36,7 @@ public class ZooApp {
         }
 
         this.sc = sc;
-        this.zoo = new Zoo();
+        this.zoo = new Zoo(3, 500);
         initializeAvailableAnimals();
     }
     
@@ -44,7 +44,7 @@ public class ZooApp {
         System.out.println("Welcome to the Zoo Management System!");
         zooName = getStringInput("What would you like to name your zoo? ");
         System.out.println("\nWelcome to " + zooName + " Zoo!");
-        System.out.println("You start with 200 points. Create your first exhibit to get started!");
+        System.out.println("You start with " + zoo.getPoints() + " points. Create your first exhibit to get started!");
 
         System.out.println("\n------------Press Enter to Continue------------");
         sc.nextLine();
@@ -85,7 +85,7 @@ public class ZooApp {
         System.out.println("1. Create New Exhibit");
         System.out.println("2. Add Animal to Exhibit");
         System.out.println("3. Interact with Animals");
-        System.out.println("4. View Zoo Stats (please implement)");
+        System.out.println("4. View Zoo Stats");
         System.out.println("5. Exit");
         System.out.println("Points: " + zoo.getPoints() + " | Visitors: " + zoo.getVisitors() + "/" + zoo.getCapacity());
     }
