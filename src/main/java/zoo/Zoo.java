@@ -30,6 +30,9 @@ public class Zoo {
         if(visitors < capacity) {
             visitors++;
             System.out.println("Visitor Entered!");
+        } else {
+            System.out.println("Zoo has reached Maximum Capacity! Closing for Reconstruction");
+            System.exit(0);
         }
     }
 
