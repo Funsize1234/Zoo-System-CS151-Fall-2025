@@ -36,7 +36,7 @@ public class ZooApp {
         }
 
         this.sc = sc;
-        this.zoo = new Zoo(3, 500);
+        this.zoo = new Zoo(50, 500);
         initializeAvailableAnimals();
     }
     
