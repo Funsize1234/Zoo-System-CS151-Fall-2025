@@ -37,6 +37,10 @@ public abstract class ZooAnimal {
         return size;
     }
 
+    public void setSize(int size) {
+        this.size = size;
+    }
+
     public void setHealth(int newHealth) {
         health = newHealth;
     }
@@ -53,12 +57,24 @@ public abstract class ZooAnimal {
         return purchaseCost;
     }
     
+    public void setPurchaseCost(int cost) {
+        this.purchaseCost = cost;
+    }
+
     public int getBasicPoints() {
         return basicPoints;
+    }
+
+    public void setBasicPoints(int points) {
+        this.basicPoints = points;
     }
     
     public int getTrickPoints() {
         return trickPoints;
+    }
+
+    public void setTrickPoints(int points) {
+        this.trickPoints = points;
     }
 
     public void decreaseHealth(int amount) {

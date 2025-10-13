@@ -16,9 +16,9 @@ public class Exhibit {
     private String name;
     private List<ZooAnimal> allAnimals;
     
-    private boolean hasAviary;
-    private boolean hasAquatic;
-    private boolean hasGround;
+    private final boolean hasAviary;
+    private final boolean hasAquatic;
+    private final boolean hasGround;
 
     public static int instances = 0;
     public static final int MAX_INSTANCES = 100; 

@@ -52,9 +52,14 @@ public class Crane extends ZooAnimal implements Flyable, Runnable, Swimmable {
 
     @Override
     public int fly() {
-        
         return getBasicPoints();
     }
+
+    @Override
+    public String toString() {
+        return "";
+    }
+
 
 
 }

@@ -3,6 +3,7 @@ package src.test.java.zoo;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.rules.ExpectedException;
 
 import src.main.java.animals.*;
 import src.main.java.exceptions.MaxInstancesExceededException;
@@ -26,13 +27,9 @@ public class ZooAnimalTests {
     }
 
     @Test
-    void maximumDolphins() {
-        for(int i = 0; i < Dolphin.MAX_INSTANCES; i++) {
-            try {
-                animals.add(new Dolphin(0,0));
-            } catch(Exception e) {
-                System.out.println(e.getMessage());
-            }
+    void maximumDolphins() throws Exception {
+        for(int i = 0; i < Dolphin.MAX_INSTANCES; i++) { 
+            animals.add(new Dolphin(0,0));
         }
         assertThrows(MaxInstancesExceededException.class, () -> {
             animals.add(new Dolphin(0, 0));
@@ -40,26 +37,18 @@ public class ZooAnimalTests {
     }
 
     @Test
-    void maximumDucks() {
+    void maximumDucks() throws Exception {
         for(int i = 0; i < Duck.MAX_INSTANCES; i++) {
-            try {
                 animals.add(new Duck(0,0));
-            } catch(Exception e) {
-                System.out.println(e.getMessage());
-            }
         }
         assertThrows(MaxInstancesExceededException.class, () -> {
             animals.add(new Duck(0, 0));
         });
     }
     @Test
-    void maximumEagles() {
+    void maximumEagles() throws Exception {
         for(int i = 0; i < Eagle.MAX_INSTANCES; i++) {
-            try {
                 animals.add(new Eagle(0,0));
-            } catch(Exception e) {
-                System.out.println(e.getMessage());
-            }
         }
         assertThrows(MaxInstancesExceededException.class, () -> {
             animals.add(new Eagle(0, 0));
@@ -67,27 +56,19 @@ public class ZooAnimalTests {
     }
 
         @Test
-    void maximumLions() {
+    void maximumLions() throws Exception {
         for(int i = 0; i < Lion.MAX_INSTANCES; i++) {
-            try {
                 animals.add(new Lion(0,0));
-            } catch(Exception e) {
-                System.out.println(e.getMessage());
             }
-        }
         assertThrows(MaxInstancesExceededException.class, () -> {
             animals.add(new Lion(0, 0));
         });
     }
 
     @Test
-    void maximumPenguins() {
+    void maximumPenguins() throws Exception {
         for(int i = 0; i < Penguin.MAX_INSTANCES; i++) {
-            try {
                 animals.add(new Penguin(0,0));
-            } catch(Exception e) {
-                System.out.println(e.getMessage());
-            }
         }
         assertThrows(MaxInstancesExceededException.class, () -> {
             animals.add(new Penguin(0, 0));
@@ -95,16 +76,31 @@ public class ZooAnimalTests {
     }
 
     @Test
-    void maximumTortoises() {
+    void maximumTortoises() throws Exception {
         for(int i = 0; i < Tortoise.MAX_INSTANCES; i++) {
-            try {
                 animals.add(new Tortoise(0,0));
-            } catch(Exception e) {
-                System.out.println(e.getMessage());
-            }
         }
         assertThrows(MaxInstancesExceededException.class, () -> {
             animals.add(new Tortoise(0, 0));
+        });
+    }
+
+    @Test
+    void maximumCranes() throws Exception {
+        for(int i = 0; i < Crane.MAX_INSTANCES; i++) {
+                animals.add(new Crane(0,0));
+        }
+        assertThrows(MaxInstancesExceededException.class, () -> {
+            animals.add(new Crane(0, 0));
+        });
+    }
+    @Test
+    void maximumOtters() throws Exception {
+        for(int i = 0; i < Otter.MAX_INSTANCES; i++) {
+                animals.add(new Otter(0,0));
+        }
+        assertThrows(MaxInstancesExceededException.class, () -> {
+            animals.add(new Otter(0, 0));
         });
     }
 }

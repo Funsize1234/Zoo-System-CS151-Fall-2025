@@ -1,0 +1,2 @@
+Main-Class: src.main.java.zoo.ZooApp
+Class-Path: lib/
