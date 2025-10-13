@@ -160,8 +160,9 @@ public class ZooSystemTests {
 
     @Test
     void createZooThrows() throws Exception {
-        Zoo z = new Zoo();
-        assertThrows(MaxInstancesExceededException.class, () -> new Zoo());
+        ArrayList<Zoo> zoos = new ArrayList<>();
+        zoos.add(new Zoo());
+        assertThrows(MaxInstancesExceededException.class, () -> zoos.add(new Zoo()));
     }
 
     @Test
@@ -171,8 +172,10 @@ public class ZooSystemTests {
 
     @Test
     void createZooAppThrows() throws Exception {
-        ZooApp za = new ZooApp(new Scanner(System.in));
-        assertThrows(MaxInstancesExceededException.class, () -> new Zoo());
+        ArrayList<ZooApp> zooApps = new ArrayList<>();
+        Scanner sc = new Scanner(System.in);
+        zooApps.add(new ZooApp(sc));
+        assertThrows(MaxInstancesExceededException.class, () -> zooApps.add(new ZooApp(sc)));
     }
 
 }
