@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Zoo System is an interactive game written in Java where players can build and manage their own zoo. In this game, you're allowed to create exhibits with different habitats and add from an assortment of animals. You'll then be able to interact with them through various activities. This project is made for CS151 - Object-Oriented Design in order to practice inheritance, interfaces, exceptions, and beginner object-oriented design. 
+The Zoo System is an interactive simulator written in Java where players can build and manage their own zoo. In the program, you're allowed to create exhibits with different habitats and add from an assortment of animals. You'll then be able to interact with them through various activities. This project was made for CS151 (Object-Oriented Design) in order to practice inheritance, interfaces, exceptions, and beginner object-oriented design. 
   
 ## Design
 
@@ -38,8 +38,13 @@ javac -d bin src src/main/java/**/*.java
 ## Instructions
 
 **To run program**
+Class Path
 ```
 java -cp bin src.main.java.zoo.ZooApp
+```
+JAR file
+```
+java -jar ZooApp.jar
 ```
 **Use Menu Options**
  1. Create an Exhibit -> Choose Habitats (Ground, Aquatic, Aviary).
@@ -79,11 +84,11 @@ Zoo (Visitors: 27/50) | Points: 75
 
 ZooApp, Zoo, Exhibit, ZooAnimal, Flyable, Swimmable, Runnable, Dolphin, Duck, Lion, Eagle, Penguin, Tortoise
 
-**Issac**
+**Isaac**
 
 ZooAnimal, Flyable, Duck, Eagle, ZooApp, Exhbit, Zoo, Tortoise, Penguin, Lion, Dolphin
 
-**Collin**
+**Colin**
 
 ZooAnimalTests, ZooSystemTests, AnimalNotFoundException, ExhibitMismatchException, MaxInstancesException
 
