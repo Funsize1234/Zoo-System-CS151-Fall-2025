@@ -31,8 +31,14 @@ git clone https://github.com/FunSize1234/Zoo-System-CS151.git
 **Open in an IDE**
 - VSCode, IntelliJ, Eclipse
 **Compile before running**
+
+MAC/LINUX
 ```
 javac -d bin src src/main/java/**/*.java
+```
+WINDOWS POWERSHELL
+```
+javac -d bin (Get-ChildItem -Recurse -Filter *.java src\main\java | ForEach-Object { $_.FullName })
 ```
 
 ## Instructions
@@ -43,10 +49,19 @@ Class Path
 ```
 java -cp bin src.main.java.zoo.ZooApp
 ```
-JAR file
+Included JAR file
 ```
 java -jar ZooApp.jar
 ```
+
+**To run JUnit tests**
+
+Make sure the JUnit Jar file is inside a lib folder in project directory and all .java files are compiled into a bin folder
+
+```
+java -jar lib/<JUnit Jar File Name> -cp bin --scan-classpath
+```
+
 **Use Menu Options**
  1. Create an Exhibit -> Choose Habitats (Ground, Aquatic, Aviary).
  2. Add Animal To Exhibit -> Choose an animal then assign it a name and exhibit.
