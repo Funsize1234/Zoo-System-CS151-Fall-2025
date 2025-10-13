@@ -42,6 +42,7 @@ javac -d bin (Get-ChildItem -Recurse -Filter *.java src\main\java | ForEach-Obje
 ```
 
 **Compile Tests**
+
 Compile the program before compiling tests
 
 Make sure the JUnit Jar file is inside a lib folder in project directory and all .java files are compiled into a bin folder
