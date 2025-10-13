@@ -5,7 +5,6 @@ import java.util.List;
 
 import src.main.java.animals.ZooAnimal;
 import src.main.java.animals.animalTypes.Flyable;
-import src.main.java.animals.animalTypes.Runnable;
 import src.main.java.animals.animalTypes.Swimmable;
 import src.main.java.exceptions.AnimalNotFoundException;
 import src.main.java.exceptions.ExhibitMismatchException;
@@ -15,6 +14,7 @@ import src.main.java.exceptions.MaxInstancesExceededException;
 public class Exhibit {
     private String name;
     private List<ZooAnimal> allAnimals;
+    private int totalInvestment;
     
     private final boolean hasAviary;
     private final boolean hasAquatic;
@@ -32,6 +32,22 @@ public class Exhibit {
 
         this.name = name;
         this.allAnimals = new ArrayList<>();
+        this.totalInvestment = 0;
+
+        this.hasAviary = hasAviary;
+        this.hasAquatic = hasAquatic;
+        this.hasGround = hasGround;
+    }
+    
+    public Exhibit(String name, boolean hasAviary, boolean hasAquatic, boolean hasGround, int habitatCost) throws MaxInstancesExceededException{
+        instances++;
+        if (instances > MAX_INSTANCES) {
+            throw new MaxInstancesExceededException("Exhibit", instances, MAX_INSTANCES);
+        }
+
+        this.name = name;
+        this.allAnimals = new ArrayList<>();
+        this.totalInvestment = habitatCost;
 
         this.hasAviary = hasAviary;
         this.hasAquatic = hasAquatic;
@@ -59,12 +75,14 @@ public class Exhibit {
         }
 
         allAnimals.add(animal);
+        totalInvestment += animal.getPurchaseCost();
     }
 
     public void removeAnimal(ZooAnimal animal) throws AnimalNotFoundException {
         for(int i = 0; i < this.allAnimals.size(); i++) {
             if(this.allAnimals.get(i) == animal) {
                 this.allAnimals.remove(i);
+                totalInvestment -= animal.getPurchaseCost();
                 return;
             }
         }
@@ -99,6 +117,10 @@ public class Exhibit {
 
     public int getTotalAnimals() {
         return allAnimals.size();
+    }
+    
+    public int getTotalInvestment() {
+        return totalInvestment;
     }
 
 }

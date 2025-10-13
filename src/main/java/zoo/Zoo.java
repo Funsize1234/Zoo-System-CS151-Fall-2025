@@ -77,6 +77,10 @@ public class Zoo {
     public void addExhibit(Exhibit exhibit) {
         exhibits.add(exhibit);
     }
+    
+    public void addExhibit(Exhibit exhibit, int habitatCost) {
+        exhibits.add(exhibit);
+    }
 
     public boolean removeExhibit(Exhibit exhibit) {
         return exhibits.remove(exhibit);

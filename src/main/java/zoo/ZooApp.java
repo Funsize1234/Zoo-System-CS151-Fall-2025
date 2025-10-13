@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
 
 import src.main.java.animals.Dolphin;
 import src.main.java.animals.Duck;
@@ -68,6 +67,9 @@ public class ZooApp {
                     viewZooStats();
                     break;
                 case 5:
+                    sellExhibit();
+                    break;
+                case 6:
                     running = false;
                     System.out.println("Thanks for playing! Goodbye!");
                     break;
@@ -86,7 +88,8 @@ public class ZooApp {
         System.out.println("2. Add Animal to Exhibit");
         System.out.println("3. Interact with Animals");
         System.out.println("4. View Zoo Stats");
-        System.out.println("5. Exit");
+        System.out.println("5. Sell Exhibit");
+        System.out.println("6. Exit");
         System.out.println("Points: " + zoo.getPoints() + " | Visitors: " + zoo.getVisitors() + "/" + zoo.getCapacity());
     }
     
@@ -147,7 +150,7 @@ public class ZooApp {
 
         Exhibit exhibit;
         try {
-            exhibit = new Exhibit(name, hasAviary, hasAquatic, hasGround);
+            exhibit = new Exhibit(name, hasAviary, hasAquatic, hasGround, totalCost);
         } catch(MaxInstancesExceededException miee) {
             System.out.println(miee.getMessage());
             return;
@@ -384,6 +387,55 @@ public class ZooApp {
                 System.out.println("      " + species + " - Name: " + name + ", Health: " + animal.getHealth());
             }
         }
+    }
+    
+    private void sellExhibit() {
+        System.out.println("\n=== Sell Exhibit ===");
+        
+        if (zoo.getExhibits().isEmpty()) {
+            System.out.println("No exhibits available to sell! Create an exhibit first.");
+            return;
+        }
+        
+        System.out.println("Available exhibits to sell:");
+        List<Exhibit> exhibits = zoo.getExhibits();
+        for (int i = 0; i < exhibits.size(); i++) {
+            Exhibit exhibit = exhibits.get(i);
+            System.out.println((i + 1) + ". " + exhibit.getName() + " (Total Investment: " + exhibit.getTotalInvestment() + " points, Animals: " + exhibit.getTotalAnimals() + ")");
+        }
+        
+        int exhibitChoice = getIntInput("Select exhibit to sell (1-" + exhibits.size() + ") or 0 to go back: ") - 1;
+        if (exhibitChoice < 0) {
+            return;
+        } else if (exhibitChoice >= exhibits.size()) {
+            System.out.println("Invalid selection!");
+            return;
+        }
+        
+        Exhibit selectedExhibit = exhibits.get(exhibitChoice);
+        int totalInvestment = selectedExhibit.getTotalInvestment();
+        int refund = totalInvestment / 2;
+        
+        String confirm = getStringInput("Are you sure you want to sell '" + selectedExhibit.getName() + "' for " + refund + " points? (yes/no): ");
+        if (!confirm.equalsIgnoreCase("yes")) {
+            System.out.println("Sale cancelled.");
+            return;
+        }
+        
+        int animalsToRemove = selectedExhibit.getTotalAnimals();
+        int visitorsToRemove = animalsToRemove / 2;
+        
+        for (int i = 0; i < visitorsToRemove && zoo.getVisitors() > 0; i++) {
+            zoo.removeVisitor();
+        }
+        
+        zoo.addPoints(refund);
+        
+        zoo.removeExhibit(selectedExhibit);
+        
+        System.out.println("\nExhibit '" + selectedExhibit.getName() + "' sold successfully!");
+        System.out.println("Received " + refund + " points (50% of " + totalInvestment + " total investment)");
+        System.out.println("Removed " + visitorsToRemove + " visitors");
     }
     
     private void initializeAvailableAnimals() {
