@@ -13,7 +13,6 @@ import src.main.java.animals.Eagle;
 import src.main.java.animals.Lion;
 import src.main.java.animals.Penguin;
 import src.main.java.animals.Tortoise;
-import src.main.java.animals.ZooAnimal;
 import src.main.java.exceptions.AnimalNotFoundException;
 import src.main.java.exceptions.ExhibitMismatchException;
 import src.main.java.exceptions.MaxInstancesExceededException;

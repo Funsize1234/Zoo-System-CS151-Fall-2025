@@ -3,7 +3,6 @@ package src.test.java.zoo;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.rules.ExpectedException;
 
 import src.main.java.animals.*;
 import src.main.java.exceptions.MaxInstancesExceededException;

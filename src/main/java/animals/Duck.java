@@ -3,7 +3,6 @@ package src.main.java.animals;
 import src.main.java.animals.animalTypes.Flyable;
 import src.main.java.animals.animalTypes.Runnable;
 import src.main.java.animals.animalTypes.Swimmable;
-import src.main.java.exceptions.ExhibitMismatchException;
 import src.main.java.exceptions.MaxInstancesExceededException;
 
 public class Duck extends ZooAnimal implements Flyable, Runnable, Swimmable {

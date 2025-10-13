@@ -1,7 +1,6 @@
 package src.main.java.animals;
 
 import src.main.java.animals.animalTypes.Flyable;
-import src.main.java.animals.animalTypes.Runnable;
 import src.main.java.exceptions.MaxInstancesExceededException;
 
 public class Eagle extends ZooAnimal implements Flyable {
