@@ -125,4 +125,8 @@ public class Zoo {
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
+
+    public String toString() {
+        return "Visitors: " + this.getVisitors() + "/" + this.getCapacity() + ")" + " | Points: " + this.getPoints();
+    }
 }

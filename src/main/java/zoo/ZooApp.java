@@ -376,15 +376,14 @@ public class ZooApp {
     }
     
     private void viewZooStats() {
-        System.out.println("\nZoo (Visitors: " + zoo.getVisitors() + "/" + zoo.getCapacity() + ")" + " | Points: " + zoo.getPoints());
-        for (Exhibit exhibit : zoo.getExhibits()) {
-            System.out.println("   " + exhibit.toString());
-
-            for (ZooAnimal animal : exhibit.getAllAnimals()) {
-                System.out.println("      " + animal.toString());
-            }
-        }
+        
     }
+
+    @Override
+    public String toString() {
+       return "Zoo Managment System";
+    }
+
     
     private void sellExhibit() {
         System.out.println("\n=== Sell Exhibit ===");
