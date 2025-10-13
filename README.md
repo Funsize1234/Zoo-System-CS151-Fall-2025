@@ -57,7 +57,7 @@ java -jar ZooApp.jar
 **To run JUnit tests**
 
 Make sure the JUnit Jar file is inside a lib folder in project directory and all .java files are compiled into a bin folder
-
+Our project was made using JUnit 1.11.3
 ```
 java -jar lib/<JUnit Jar File Name> -cp bin --scan-classpath
 ```
