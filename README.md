@@ -38,6 +38,7 @@ javac -d bin src src/main/java/**/*.java
 ## Instructions
 
 **To run program**
+
 Class Path
 ```
 java -cp bin src.main.java.zoo.ZooApp
