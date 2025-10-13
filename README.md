@@ -1,8 +1,94 @@
 # Zoo-System-CS151
 
 ## Overview
+
+The Zoo System is an interactive game written in Java where players can build and manage their own zoo. In this game, you're allowed to create exhibits with different habitats and add from an assortment of animals. You'll then be able to interact with them through various activities. This project is made for CS151 - Object-Oriented Design in order to practice inheritance, interfaces, exceptions, and beginner object-oriented design. 
+  
 ## Design
+
+### Object-Oriented Hierarchy
+- ZooAnimal is a base abstract class
+- All animals (Lion, Eagle, Penguin, etc.) extend ZooAnimal, but implement interfaces (Runnable, Swimmable, Flyable) differently depending on what they're capable of.
+  
+### Habitats
+- Exhibits are capable of supporting one or multiple habitat types (Ground, Aquatic, Aviary).
+- Animals are only allowed in exhibits that match their type(s). If an animal has multiple types but the exhibit only has one matching habitat, the animal cannot be added.
+  
+### Zoo Management
+- The Zoo class tracks all base information (Visitors, Points, Capacity, Exhibits, Animals).
+- The ZooApp class is used to run the game with a system relying on a menu to perform tasks.
+  
+### Exceptions & Limitations
+- Exceptions (ExhibitMisMatchException, AnimalNotFoundException, MaxInstancesExceeedException) are used to handle validity of operations.
+- Static counters are used to limit the number of animals/exhibits that can be created.
+
 ## Installation 
+
+**Clone the repository:**
+```
+git clone https://github.com/FunSize1234/Zoo-System-CS151.git
+```
+**Open in an IDE**
+- VSCode, IntelliJ, Eclipse
+**Compile before running**
+```
+javac -d bin src src/main/java/**/*.java
+```
+
 ## Instructions
+
+**To run program**
+```
+java -cp bin src.main.java.zoo.ZooApp
+```
+**Use Menu Options**
+ 1. Create an Exhibit -> Choose Habitats (Ground, Aquatic, Aviary).
+ 2. Add Animal To Exhibit -> Choose an animal then assign it a name and exhibit.
+ 3. Interact with Animals -> Used to gain points (Run, swim, fly, perform tricks).
+ 4. View Zoo Stats -> Shows basic information (Exhibits, Animals, Visitors, Points).
+ 5. Exit -> Quits the program.
+
 ## Usage
+
+**Example Menu:**
+```
+=== "Name" Zoo Menu ===
+1. Create New Exhibit
+2. Add Animal to Exhibit
+3. Interact with Animals
+4. View Zoo Stats
+5. Exit
+Points: 500 | Visitors: 0/50
+```
+**Example View Stats:**
+```
+Zoo (Visitors: 27/50) | Points: 75
+  Exhibit A (Habitats: Aquatic, Aviary, Ground)
+    Crane - Name: Crane1, Health: 40
+    Lion - Name: Lion1, Health: 75
+    Tortoise - Name: Tortoise1, Health: 90
+  Exhibit B (Habitats: Aquatic, Ground)
+    Penguin - Name: Penguin1, Health: 65
+    Duck - Name: Duck1, Health: 30
+    Dolphin - Name: Dolphin1, Health: 50
+```
+
 ## Contributions
+
+**Atay**
+
+ZooApp, Zoo, Exhibit, ZooAnimal, Flyable, Swimmable, Runnable, Dolphin, Duck, Lion, Eagle, Penguin, Tortoise
+
+**Issac**
+
+ZooAnimal, Flyable, Duck, Eagle, ZooApp, Exhbit, Zoo, Tortoise, Penguin, Lion, Dolphin
+
+**Collin**
+
+ZooAnimalTests, ZooSystemTests, AnimalNotFoundException, ExhibitMismatchException, MaxInstancesException
+
+
+**Brandon**
+
+Runnable, Lion, Crane, Otter, Exhibit, Zoo, ZooApp
+
