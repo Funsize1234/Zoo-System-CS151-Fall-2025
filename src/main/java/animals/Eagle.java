@@ -4,7 +4,7 @@ import src.main.java.animals.animalTypes.Flyable;
 import src.main.java.animals.animalTypes.Runnable;
 import src.main.java.exceptions.MaxInstancesExceededException;
 
-public class Eagle extends ZooAnimal implements Flyable, Runnable {
+public class Eagle extends ZooAnimal implements Flyable {
 
     public static int instances = 0;
     public static final int MAX_INSTANCES = 100;
@@ -15,12 +15,6 @@ public class Eagle extends ZooAnimal implements Flyable, Runnable {
         if (instances > MAX_INSTANCES) {
             throw new MaxInstancesExceededException("Eagle", instances, MAX_INSTANCES);
         }
-    }
-
-    @Override
-    public int run() {
-        System.out.println(name + " runs around the floor of the habitat, drawing some attention.");
-        return getBasicPoints();
     }
 
     @Override
@@ -40,9 +34,13 @@ public class Eagle extends ZooAnimal implements Flyable, Runnable {
     }
     
     @Override
-    public int performGroundTricks() {
-        System.out.println(name + " jumps up and down around the floor, drawing the attention of more visitors.");
-        return getTrickPoints();
+    public String getType() {
+        return "Eagle";
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
     }
 
 }

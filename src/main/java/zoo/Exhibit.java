@@ -123,4 +123,8 @@ public class Exhibit {
         return totalInvestment;
     }
 
+    @Override
+    public String toString() {
+        return this.getName() + " Exhibit (Habitats: " + this.getHabitats().replace(" ", ", ") + ")";
+    }
 }

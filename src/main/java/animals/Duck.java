@@ -60,4 +60,14 @@ public class Duck extends ZooAnimal implements Flyable, Runnable, Swimmable {
         return getTrickPoints();
     }
 
+    @Override
+    public String getType() {
+        return "Duck";
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+
 }

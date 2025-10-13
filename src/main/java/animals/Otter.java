@@ -43,4 +43,14 @@ public class Otter extends ZooAnimal implements Swimmable, Runnable {
         System.out.println(name + " leaps out the water and catches a fish, drawing the attention of more visitors");
         return getTrickPoints();
     }
+
+    @Override
+    public String getType() {
+        return "Otter";
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

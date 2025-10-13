@@ -56,10 +56,13 @@ public class Crane extends ZooAnimal implements Flyable, Runnable, Swimmable {
     }
 
     @Override
-    public String toString() {
-        return "";
+    public String getType() {
+        return "Crane";
     }
 
-
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 
 }

@@ -28,4 +28,14 @@ public class Tortoise extends ZooAnimal implements Runnable {
         return getTrickPoints();
     }
     
+    @Override
+    public String getType() {
+        return "Tortoise";
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+
 }

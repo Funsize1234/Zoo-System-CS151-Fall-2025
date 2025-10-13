@@ -27,5 +27,15 @@ public class Lion extends ZooAnimal implements Runnable {
         System.out.println(name + " roars loudly, drawing the attention of more visitors.");
         return getTrickPoints();
     }
+
+    @Override
+    public String getType() {
+        return "Lion";
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
     
 }

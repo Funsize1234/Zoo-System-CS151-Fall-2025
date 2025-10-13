@@ -88,4 +88,13 @@ public abstract class ZooAnimal {
         return health > 0;
     }
 
+    public String getType() {
+        return "Default";
+    }
+
+    @Override
+    public String toString() {
+        return this.name + " (Type: " + this.getType() + " / Health: " + this.health + "/" + MAX_HEALTH + ")";
+    }
+
 }

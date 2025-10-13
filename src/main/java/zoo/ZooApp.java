@@ -378,13 +378,10 @@ public class ZooApp {
     private void viewZooStats() {
         System.out.println("\nZoo (Visitors: " + zoo.getVisitors() + "/" + zoo.getCapacity() + ")" + " | Points: " + zoo.getPoints());
         for (Exhibit exhibit : zoo.getExhibits()) {
-            System.out.println("   " + exhibit.getName() + " Exhibit (Habitats: " + exhibit.getHabitats().replace(" ", ", ") + ")");
+            System.out.println("   " + exhibit.toString());
 
             for (ZooAnimal animal : exhibit.getAllAnimals()) {
-                String species = animal.getClass().getSimpleName();
-                String name = animal.getName();
-
-                System.out.println("      " + species + " - Name: " + name + ", Health: " + animal.getHealth());
+                System.out.println("      " + animal.toString());
             }
         }
     }

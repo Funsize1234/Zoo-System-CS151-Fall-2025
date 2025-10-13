@@ -41,4 +41,15 @@ public class Penguin extends ZooAnimal implements Swimmable, Runnable {
         return getTrickPoints();
     }
     
+    @Override
+    public String getType() {
+        return "Penguin";
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+
+
 }

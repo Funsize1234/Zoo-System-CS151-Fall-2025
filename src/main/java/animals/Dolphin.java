@@ -28,5 +28,15 @@ public class Dolphin extends ZooAnimal implements Swimmable {
         return getTrickPoints();
     }
 
+
+    @Override
+    public String getType() {
+        return "Dolphin";
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
     
 }
