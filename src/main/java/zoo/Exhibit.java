@@ -54,7 +54,12 @@ public class Exhibit {
     }
 
     public void addAnimal(ZooAnimal animal) throws ExhibitMismatchException {
-        // check required capabilities, throw if missing
+        validateAnimalCompatibility(animal);
+        allAnimals.add(animal);
+        totalInvestment += animal.getPurchaseCost();
+    }
+
+    private void validateAnimalCompatibility(ZooAnimal animal) throws ExhibitMismatchException {
         if (animal instanceof Flyable && !hasAviary) {
             throw new ExhibitMismatchException(animal, this);
         }
@@ -64,20 +69,14 @@ public class Exhibit {
         if (animal instanceof Swimmable && !hasAquatic) {
             throw new ExhibitMismatchException(animal, this);
         }
-
-        allAnimals.add(animal);
-        totalInvestment += animal.getPurchaseCost();
     }
 
     public void removeAnimal(ZooAnimal animal) throws AnimalNotFoundException {
-        for(int i = 0; i < this.allAnimals.size(); i++) {
-            if(this.allAnimals.get(i) == animal) {
-                this.allAnimals.remove(i);
-                totalInvestment -= animal.getPurchaseCost();
-                return;
-            }
+        if (allAnimals.remove(animal)) {
+            totalInvestment -= animal.getPurchaseCost();
+        } else {
+            throw new AnimalNotFoundException(animal);
         }
-        throw new AnimalNotFoundException(animal);
     }
 
     public String getHabitats() {

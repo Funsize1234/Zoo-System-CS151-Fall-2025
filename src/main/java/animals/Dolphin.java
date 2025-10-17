@@ -6,12 +6,16 @@ import src.main.java.exceptions.MaxInstancesExceededException;
 public class Dolphin extends ZooAnimal implements Swimmable {
 
     public static int instances = 0;
-    public static int MAX_INSTANCES = 100;
+    public static final int MAX_INSTANCES = 100;
 
     public Dolphin(int health, int size) throws MaxInstancesExceededException {
         super(health, size, 300, 15, 50);
+        validateInstanceLimit();
+    }
+
+    private void validateInstanceLimit() throws MaxInstancesExceededException {
         instances++;
-        if(instances > MAX_INSTANCES) {
+        if (instances > MAX_INSTANCES) {
             throw new MaxInstancesExceededException("Dolphin", instances, MAX_INSTANCES);
         }
     }
