@@ -25,33 +25,24 @@ public class Exhibit {
     
     
     public Exhibit(String name, boolean hasAviary, boolean hasAquatic, boolean hasGround) throws MaxInstancesExceededException{
-        instances++;
-        if (instances > MAX_INSTANCES) {
-            throw new MaxInstancesExceededException("Exhibit", instances, MAX_INSTANCES);
-        }
-
+        this(name, hasAviary, hasAquatic, hasGround, 0);
+    }
+    
+    public Exhibit(String name, boolean hasAviary, boolean hasAquatic, boolean hasGround, int habitatCost) throws MaxInstancesExceededException{
+        validateInstanceLimit();
         this.name = name;
         this.allAnimals = new ArrayList<>();
-        this.totalInvestment = 0;
-
+        this.totalInvestment = habitatCost;
         this.hasAviary = hasAviary;
         this.hasAquatic = hasAquatic;
         this.hasGround = hasGround;
     }
-    
-    public Exhibit(String name, boolean hasAviary, boolean hasAquatic, boolean hasGround, int habitatCost) throws MaxInstancesExceededException{
+
+    private void validateInstanceLimit() throws MaxInstancesExceededException {
         instances++;
         if (instances > MAX_INSTANCES) {
             throw new MaxInstancesExceededException("Exhibit", instances, MAX_INSTANCES);
         }
-
-        this.name = name;
-        this.allAnimals = new ArrayList<>();
-        this.totalInvestment = habitatCost;
-
-        this.hasAviary = hasAviary;
-        this.hasAquatic = hasAquatic;
-        this.hasGround = hasGround;
     }
     
     public String getName() {
@@ -90,29 +81,11 @@ public class Exhibit {
     }
 
     public String getHabitats() {
-        StringBuilder sb = new StringBuilder();
-        int count = 0;
-
-        if(hasAquatic) {
-            sb.append("Aquatic");
-            count++;
-        }
-        if(hasAviary) {
-            if(count > 0) {
-                sb.append(" ");
-            }
-            sb.append("Aviary");
-            count++;
-        }
-        if(hasGround) {
-            if(count > 0) {
-                sb.append(" ");
-            }
-            sb.append("Ground");
-            count++;
-        }
-
-        return sb.toString();
+        List<String> habitats = new ArrayList<>();
+        if(hasAquatic) habitats.add("Aquatic");
+        if(hasAviary) habitats.add("Aviary");
+        if(hasGround) habitats.add("Ground");
+        return String.join(" ", habitats);
     }
 
     public int getTotalAnimals() {
