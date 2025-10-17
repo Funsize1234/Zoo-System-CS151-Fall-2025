@@ -29,7 +29,7 @@ public class Ticket {
             case ADULT: price = ADULT_PRICE; break;
             case CHILD: price = CHILD_PRICE; break;
             case SENIOR: price = SENIOR_PRICE; break;
-            default: throw new IllegalAccessException("Unknown ticket type: " + type);
+            default: throw new IllegalArgumentException("Unknown ticket type: " + type);
                 
         }
 
@@ -39,6 +39,8 @@ public class Ticket {
 
         return price;
     }
+
+    public static double total()
 
 
 }
