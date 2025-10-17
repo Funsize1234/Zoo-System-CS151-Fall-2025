@@ -19,12 +19,13 @@ public class Exhibit {
     private final boolean hasAviary;
     private final boolean hasAquatic;
     private final boolean hasGround;
+    private final boolean hasDesert;
 
     public static int instances = 0;
     public static final int MAX_INSTANCES = 100; 
     
     
-    public Exhibit(String name, boolean hasAviary, boolean hasAquatic, boolean hasGround) throws MaxInstancesExceededException{
+    public Exhibit(String name, boolean hasAviary, boolean hasAquatic, boolean hasGround, boolean hasDesert) throws MaxInstancesExceededException{
         instances++;
         if (instances > MAX_INSTANCES) {
             throw new MaxInstancesExceededException("Exhibit", instances, MAX_INSTANCES);
@@ -33,13 +34,13 @@ public class Exhibit {
         this.name = name;
         this.allAnimals = new ArrayList<>();
         this.totalInvestment = 0;
-
+        this.hasDesert = hasDesert;
         this.hasAviary = hasAviary;
         this.hasAquatic = hasAquatic;
         this.hasGround = hasGround;
     }
     
-    public Exhibit(String name, boolean hasAviary, boolean hasAquatic, boolean hasGround, int habitatCost) throws MaxInstancesExceededException{
+    public Exhibit(String name, boolean hasAviary, boolean hasAquatic, boolean hasGround, int habitatCost, boolean hasDesert) throws MaxInstancesExceededException{
         instances++;
         if (instances > MAX_INSTANCES) {
             throw new MaxInstancesExceededException("Exhibit", instances, MAX_INSTANCES);
@@ -50,6 +51,7 @@ public class Exhibit {
         this.totalInvestment = habitatCost;
 
         this.hasAviary = hasAviary;
+        this.hasDesert = hasDesert;
         this.hasAquatic = hasAquatic;
         this.hasGround = hasGround;
     }
@@ -107,6 +109,14 @@ public class Exhibit {
         if(hasGround) {
             if(count > 0) {
                 sb.append(" ");
+            }
+            sb.append("Ground");
+            count++;
+        }
+
+        if (hasDesert){
+            if (count>0){
+                sb.append("");
             }
             sb.append("Ground");
             count++;
