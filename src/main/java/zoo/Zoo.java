@@ -17,11 +17,7 @@ public class Zoo {
     public static final int MAX_INSTANCES = 1;
 
     public Zoo() throws MaxInstancesExceededException {
-        instances++;
-        if (instances > MAX_INSTANCES) {
-            throw new MaxInstancesExceededException("Zoo", instances, MAX_INSTANCES);
-        }
-
+        validateInstanceLimit();
         this.visitors = 0;
         this.points = 500;
         this.exhibits = new ArrayList<>();
@@ -29,15 +25,18 @@ public class Zoo {
     }
 
     public Zoo(int capacity, int points) throws MaxInstancesExceededException {
-        instances++;
-        if (instances > MAX_INSTANCES) {
-            throw new MaxInstancesExceededException("Zoo", instances, MAX_INSTANCES);
-        }
-
+        validateInstanceLimit();
         this.capacity = capacity;
         this.visitors = 0;
         this.points = points;
         this.exhibits = new ArrayList<>();
+    }
+
+    private void validateInstanceLimit() throws MaxInstancesExceededException {
+        instances++;
+        if (instances > MAX_INSTANCES) {
+            throw new MaxInstancesExceededException("Zoo", instances, MAX_INSTANCES);
+        }
     }
 
     public void addVisitor() {
@@ -75,10 +74,6 @@ public class Zoo {
     }
     
     public void addExhibit(Exhibit exhibit) {
-        exhibits.add(exhibit);
-    }
-    
-    public void addExhibit(Exhibit exhibit, int habitatCost) {
         exhibits.add(exhibit);
     }
 

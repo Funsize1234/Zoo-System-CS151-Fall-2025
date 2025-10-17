@@ -29,14 +29,17 @@ public class ZooApp {
 
 
     public ZooApp(Scanner sc) throws MaxInstancesExceededException {
+        validateInstanceLimit();
+        this.sc = sc;
+        this.zoo = new Zoo(50, 500);
+        initializeAvailableAnimals();
+    }
+
+    private void validateInstanceLimit() throws MaxInstancesExceededException {
         instances++;
         if (instances > MAX_INSTANCES) {
             throw new MaxInstancesExceededException("ZooApp", instances, MAX_INSTANCES);
         }
-
-        this.sc = sc;
-        this.zoo = new Zoo(50, 500);
-        initializeAvailableAnimals();
     }
     
     public void start() {

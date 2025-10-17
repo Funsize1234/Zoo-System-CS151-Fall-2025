@@ -10,6 +10,10 @@ public class Lion extends ZooAnimal implements Runnable {
 
     public Lion(int health, int size) throws MaxInstancesExceededException {
         super(health, size, 200, 12, 40);
+        validateInstanceLimit();
+    }
+
+    private void validateInstanceLimit() throws MaxInstancesExceededException {
         instances++;
         if (instances > MAX_INSTANCES) {
             throw new MaxInstancesExceededException("Lion", instances, MAX_INSTANCES);

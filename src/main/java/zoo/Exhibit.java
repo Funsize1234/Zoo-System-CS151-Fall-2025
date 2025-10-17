@@ -25,33 +25,24 @@ public class Exhibit {
     
     
     public Exhibit(String name, boolean hasAviary, boolean hasAquatic, boolean hasGround) throws MaxInstancesExceededException{
-        instances++;
-        if (instances > MAX_INSTANCES) {
-            throw new MaxInstancesExceededException("Exhibit", instances, MAX_INSTANCES);
-        }
-
+        this(name, hasAviary, hasAquatic, hasGround, 0);
+    }
+    
+    public Exhibit(String name, boolean hasAviary, boolean hasAquatic, boolean hasGround, int habitatCost) throws MaxInstancesExceededException{
+        validateInstanceLimit();
         this.name = name;
         this.allAnimals = new ArrayList<>();
-        this.totalInvestment = 0;
-
+        this.totalInvestment = habitatCost;
         this.hasAviary = hasAviary;
         this.hasAquatic = hasAquatic;
         this.hasGround = hasGround;
     }
-    
-    public Exhibit(String name, boolean hasAviary, boolean hasAquatic, boolean hasGround, int habitatCost) throws MaxInstancesExceededException{
+
+    private void validateInstanceLimit() throws MaxInstancesExceededException {
         instances++;
         if (instances > MAX_INSTANCES) {
             throw new MaxInstancesExceededException("Exhibit", instances, MAX_INSTANCES);
         }
-
-        this.name = name;
-        this.allAnimals = new ArrayList<>();
-        this.totalInvestment = habitatCost;
-
-        this.hasAviary = hasAviary;
-        this.hasAquatic = hasAquatic;
-        this.hasGround = hasGround;
     }
     
     public String getName() {
@@ -63,7 +54,12 @@ public class Exhibit {
     }
 
     public void addAnimal(ZooAnimal animal) throws ExhibitMismatchException {
-        // check required capabilities, throw if missing
+        validateAnimalCompatibility(animal);
+        allAnimals.add(animal);
+        totalInvestment += animal.getPurchaseCost();
+    }
+
+    private void validateAnimalCompatibility(ZooAnimal animal) throws ExhibitMismatchException {
         if (animal instanceof Flyable && !hasAviary) {
             throw new ExhibitMismatchException(animal, this);
         }
@@ -73,46 +69,22 @@ public class Exhibit {
         if (animal instanceof Swimmable && !hasAquatic) {
             throw new ExhibitMismatchException(animal, this);
         }
-
-        allAnimals.add(animal);
-        totalInvestment += animal.getPurchaseCost();
     }
 
     public void removeAnimal(ZooAnimal animal) throws AnimalNotFoundException {
-        for(int i = 0; i < this.allAnimals.size(); i++) {
-            if(this.allAnimals.get(i) == animal) {
-                this.allAnimals.remove(i);
-                totalInvestment -= animal.getPurchaseCost();
-                return;
-            }
+        if (allAnimals.remove(animal)) {
+            totalInvestment -= animal.getPurchaseCost();
+        } else {
+            throw new AnimalNotFoundException(animal);
         }
-        throw new AnimalNotFoundException(animal);
     }
 
     public String getHabitats() {
-        StringBuilder sb = new StringBuilder();
-        int count = 0;
-
-        if(hasAquatic) {
-            sb.append("Aquatic");
-            count++;
-        }
-        if(hasAviary) {
-            if(count > 0) {
-                sb.append(" ");
-            }
-            sb.append("Aviary");
-            count++;
-        }
-        if(hasGround) {
-            if(count > 0) {
-                sb.append(" ");
-            }
-            sb.append("Ground");
-            count++;
-        }
-
-        return sb.toString();
+        List<String> habitats = new ArrayList<>();
+        if(hasAquatic) habitats.add("Aquatic");
+        if(hasAviary) habitats.add("Aviary");
+        if(hasGround) habitats.add("Ground");
+        return String.join(" ", habitats);
     }
 
     public int getTotalAnimals() {

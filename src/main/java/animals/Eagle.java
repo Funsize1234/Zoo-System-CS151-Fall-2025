@@ -10,6 +10,10 @@ public class Eagle extends ZooAnimal implements Flyable {
 
     public Eagle(int health, int size) throws MaxInstancesExceededException {
         super(health, size, 150, 10, 35);
+        validateInstanceLimit();
+    }
+
+    private void validateInstanceLimit() throws MaxInstancesExceededException {
         instances++;
         if (instances > MAX_INSTANCES) {
             throw new MaxInstancesExceededException("Eagle", instances, MAX_INSTANCES);
