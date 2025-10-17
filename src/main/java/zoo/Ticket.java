@@ -49,5 +49,12 @@ public class Ticket {
         return Math.round(total * 100.0) / 100;
     }
 
+    public static double checkout(Zoo zoo, int adults, int children, int seniors, LocalDate date){
+        double total = total(adults, children, seniors, date);
+        int visitors = Math.max(0, adults) + Math.max(0, children) + Math.max(0, seniors); 
+        for(int i = 0; i < visitors; i++){ zoo.addVisitor(); }
+        return total;
+    }
+
 
 }
