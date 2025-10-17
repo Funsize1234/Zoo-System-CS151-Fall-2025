@@ -21,6 +21,24 @@ public class Ticket {
     private static boolean isTuesday(LocalDate date){
         if (date == null) date = LocalDate.now();
         return date.getDayOfWeek() == DayOfWeek.TUESDAY; 
+    }
+
+    public static double unitPrice(TicketType type, LocalDate date){
+        double price;
+        switch (type) {
+            case ADULT: price = ADULT_PRICE; break;
+            case CHILD: price = CHILD_PRICE; break;
+            case SENIOR: price = SENIOR_PRICE; break;
+            default: throw new IllegalAccessException("Unknown ticket type: " + type);
+                
+        }
+
+        if (isTuesday(date)) {
+            price = price * (1 - TUESDAY_DISCOUNT);
+        }
+
+        return price;
+    }
 
 
 }
