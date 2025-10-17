@@ -8,25 +8,31 @@ public abstract class ZooAnimal {
     protected int purchaseCost;
     protected int basicPoints;
     protected int trickPoints;
+    private boolean alive;
 
     public ZooAnimal (int health, int size, int purchaseCost, int basicPoints, int trickPoints) {
-        this.health = health;
-        this.size = size;
         this.name = ""; // Will be set later
         this.purchaseCost = purchaseCost;
         this.basicPoints = basicPoints;
         this.trickPoints = trickPoints;
+        this.alive = this.health > 0;
+        setSize(size);
+        setHealth(health);
     }
 
     public void feed(int amount) {
-        if (health == MAX_HEALTH) {
-            System.out.println("Too full to eat");
-        }
-        else if (health + amount > MAX_HEALTH) {
-            health = MAX_HEALTH;
+        if (amount <= 0) {
+            System.out.println("Invalid feed amount");
             return;
         }
-        health += amount/size;
+        if (health >= MAX_HEALTH) {
+            System.out.println("Too full to eat");
+            return;
+        }
+        health += amount / size;
+        if (health > 0) {
+            alive = true;
+        }
     }
 
     public int getHealth() {
@@ -38,11 +44,16 @@ public abstract class ZooAnimal {
     }
 
     public void setSize(int size) {
+        if (size <= 0) {
+            System.out.println("Invalid size");
+            return;
+        }
         this.size = size;
     }
 
     public void setHealth(int newHealth) {
-        health = newHealth;
+        health = Math.max(0, Math.min(MAX_HEALTH, newHealth));
+        alive = health > 0;
     }
 
     public String getName() {
@@ -58,6 +69,10 @@ public abstract class ZooAnimal {
     }
     
     public void setPurchaseCost(int cost) {
+        if (cost < 0) {
+            System.out.println("Purchase cost cannot be negative.");
+            return;
+        }
         this.purchaseCost = cost;
     }
 
@@ -77,15 +92,20 @@ public abstract class ZooAnimal {
         this.trickPoints = points;
     }
 
-    public void decreaseHealth(int amount) {
-        health -= amount;
-        if (health < 0) {
-            health = 0;
+    public int decreaseHealth(int amount) {
+        if (amount <= 0) {
+            return 0;
         }
+        int actualDecrease = Math.min(amount, health);
+        health -= actualDecrease;
+        if (health == 0) {
+            alive = false;
+        }
+        return actualDecrease;
     }
 
     public boolean isAlive() {
-        return health > 0;
+        return alive;
     }
 
     public String getType() {

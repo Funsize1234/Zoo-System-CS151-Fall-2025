@@ -64,6 +64,13 @@ public class Exhibit {
 
     public void addAnimal(ZooAnimal animal) throws ExhibitMismatchException {
         // check required capabilities, throw if missing
+        if (animal == null) {
+            throw new IllegalArgumentException("Animal cannot be null");
+        }
+        if (!animal.isAlive()) {
+            throw new ExhibitMismatchException(animal, this);
+        }
+
         if (animal instanceof Flyable && !hasAviary) {
             throw new ExhibitMismatchException(animal, this);
         }
