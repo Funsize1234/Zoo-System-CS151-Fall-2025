@@ -27,4 +27,13 @@ public class Cheetah extends ZooAnimal implements Runnable {
         return getTrickPoints();
     }
 
+      
+    @Override
+    public String getType() {
+        return "Cheetah";
+    }
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }
