@@ -224,6 +224,98 @@ public class ZooApp {
         }
     
     }
+
+
+    private void removeAnimalFromExhibit() {
+        System.out.println("\n=== Remove Animal from Exhibit ===");
+        List<Exhibit> exhibits = zoo.getExhibits();
+        if (exhibits == null || exhibits.isEmpty()) {
+            System.out.println("No exhibits available!");
+            return;
+        }
+        System.out.println("Available exhibits:");
+        for (int i = 0; i < exhibits.size(); i++) {
+            Exhibit ex = exhibits.get(i);
+            int count = (ex.getAllAnimals() == null) ? 0 : ex.getAllAnimals().size();
+            System.out.println((i + 1) + ". " + ex.getName() +
+                    " (Habitats: " + ex.getHabitats() + ", Animals: " + count + ")");
+        }
+        int exhibitChoice = getIntInput("Select exhibit (1-" + exhibits.size() + ") or 0 to go back: ") - 1;
+        if (exhibitChoice < 0)
+            return;
+        if (exhibitChoice >= exhibits.size()) {
+            System.out.println("Invalid selection!");
+            return;
+        }
+        Exhibit selectedExhibit = exhibits.get(exhibitChoice);
+        List<ZooAnimal> animals = selectedExhibit.getAllAnimals();
+        if (animals == null || animals.isEmpty()) {
+            System.out.println("No animals to remove!");
+            return;
+        }
+        String filter = getStringInput("Filter by name (press Enter for no filter): ").trim();
+        List<ZooAnimal> visible = new java.util.ArrayList<>();
+        for (ZooAnimal a : animals) {
+            if (filter.isEmpty() || a.getName().toLowerCase().contains(filter.toLowerCase())) {
+                visible.add(a);
+            }
+        }
+        if (visible.isEmpty()) {
+            System.out.println("No animals matched.");
+            return;
+        }
+        System.out.println("\nAnimals in " + selectedExhibit.getName() + ":");
+        for (int i = 0; i < visible.size(); i++) {
+            ZooAnimal a = visible.get(i);
+            System.out.println((i + 1) + ". " + a.getName() + " (" + a.getClass().getSimpleName() + ")");
+        }
+        int animalChoice = getIntInput("Select animal (1-" + visible.size() + ") or 0 to cancel: ") - 1;
+        if (animalChoice < 0)
+            return;
+        if (animalChoice >= visible.size()) {
+            System.out.println("Invalid selection!");
+            return;
+        }
+        ZooAnimal chosenAnimal = visible.get(animalChoice);
+        String confirm = getStringInput("Remove " + chosenAnimal.getName() + "? (yes/no): ");
+        if (!confirm.equalsIgnoreCase("yes")) {
+            System.out.println("Removal cancelled.");
+            return;
+        }
+        int purchaseCost = chosenAnimal.getPurchaseCost();
+        int refund = Math.max(0, purchaseCost / 2);
+        int preCount = animals.size();
+        int prePoints = zoo.getPoints();
+        try {
+            if (!animals.contains(chosenAnimal)) {
+                throw new IllegalStateException("Animal not present in exhibit.");
+            }
+            selectedExhibit.removeAnimal(chosenAnimal);
+            if (refund > 0)
+                zoo.addPoints(refund);
+            System.out.println(chosenAnimal.getName() + " removed from " + selectedExhibit.getName() + ".");
+            System.out.println("Refund: " + refund + " points. Current balance: " + zoo.getPoints());
+        } catch (Exception e) {
+            System.out.println("Error removing animal: " + e.getMessage());
+            try {
+                if (animals.size() != preCount && chosenAnimal != null) {
+                    selectedExhibit.addAnimal(chosenAnimal);
+                }
+            } catch (Exception ignored) {
+            }
+            try {
+                if (zoo.getPoints() != prePoints) {
+                    int delta = prePoints - zoo.getPoints();
+                    if (delta > 0)
+                        zoo.addPoints(delta);
+                    else if (delta < 0)
+                        zoo.spendPoints(-delta);
+                }
+            } catch (Exception ignored) {
+            }
+            System.out.println("All changes rolled back. No animals were removed.");
+        }
+    }
     
     private void interactWithAnimals() {
         List<Exhibit> exhibitList = zoo.getExhibits();
