@@ -40,7 +40,14 @@ public class Ticket {
         return price;
     }
 
-    public static double total()
+    public static double total(int adults, int children, int seniors, LocalDate date){
+        double total = 0.0;
+        total += adults * unitPrice(TicketType.ADULT, date);
+        total += children * unitPrice(TicketType.CHILD, date);
+        total += seniors * unitPrice(TicketType.SENIOR, date);
+
+        return Math.round(total * 100.0) / 100;
+    }
 
 
 }
