@@ -64,6 +64,27 @@ public class Dolphin extends ZooAnimal implements Swimmable {
         System.out.println(name + " rests peacefully, recovering " + recovered + " energy points.");
     }
 
+    public void playWithVisitors() {
+        if (energyLevel < 15) {
+            System.out.println(name + " is too tired to interact with visitors.");
+            return;
+        }
+        System.out.println(name + " splashes water playfully at the visitors!");
+        mood = "Happy";
+        energyLevel -= 8;
+        if (random.nextBoolean()) {
+            feedFish(1);
+        }
+    }
+
+    public void checkHealthStatus() {
+        String status;
+        if (energyLevel < 25) status = "Tired";
+        else if (isHungry) status = "Hungry";
+        else status = "Healthy";
+        System.out.println(name + " health status: " + status + " | Energy: " + energyLevel);
+    }
+
     public String getType() {
         return "Dolphin";
     }
